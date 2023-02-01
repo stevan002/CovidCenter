@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <base th:href="@{/}">
+    <title>Pocetna</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+</head>
+<body>
+    <table class="table table-bordered table-dark" th:unless="${session.prijavljeniKorisnik == null}">
+        <tr><th>Prijavljeni ste kao</th><td><a th:href="|Korisnici/Details?korisnickoIme=${session.prijavljeniKorisnik.email}|" th:text="${session.prijavljeniKorisnik.email    }"></a>.</td></tr>
+        <tr>
+            <td>
+                <ul>
+                    <li><a href="Korisnici/Logout">Odjava</a></li>
+                </ul>
+            </td>
+        </tr>
+    </table>
+    <table class="korisnik table table-bordered table-dark" th:if="${session.prijavljeniKorisnik == null}">
+        <tr><th>Niste prijavljeni</th></tr>
+        <tr>
+            <td>
+                <ul>
+                    <li><a href="registracija.html">Registracija</a></li>
+                    <li><a href="login.html">Login</a></li>
+                </ul>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
