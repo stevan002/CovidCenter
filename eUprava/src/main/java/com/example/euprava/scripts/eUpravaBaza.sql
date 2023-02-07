@@ -37,29 +37,53 @@ create table vakcina(
 create table vest(
 	id bigint auto_increment,
     naziv varchar(50) not null,
-    sadrzaj varchar(1000) not null,
+    sadrzaj varchar(500) not null,
     datumVremeObjavljivanje datetime not null,
     primary key(id)
 );
 
 create table vestoObolelima(
 	id bigint auto_increment,
-    brObolelih int not null,
-    brTestiranih int not null,
-    brUkupnoObolelih int not null,
-    brHospitalizovanih int not null,
-    brNaRespiratorima int not null,
-    datumVremeObjavljivanja datetime not null,
+    brojObolelih int not null,
+    brojTestiranih int not null,
+    brojUkupnoObolelih int not null,
+    brojHospitalizovanih int not null,
+    brojNaRespiratorima int not null,
+    datumObjavljivanja date not null,
     primary key(id)
 );
 
 create table kartonPacijenta(
 	id bigint auto_increment,
-    doza varchar(50) not null,
+    doza int not null,
     datumVremeDobijanjaDoze datetime not null,
     pacijentId bigint not null,
-    FOREIGN KEY(pacijentId) REFERENCES Korisnik(id)
+    FOREIGN KEY(pacijentId) REFERENCES korisnici(id)
 		ON DELETE CASCADE,
     PRIMARY KEY(id)
+);
+
+create table nabavkaVakcine (
+	id bigint auto_increment,
+    kolicinaVakcina int not null,
+    razlogNabavke varchar(100),
+    datumKreiranjaZahteva datetime not null,
+    medicinskoOsoboljeId bigint not null,
+    razlogOdbijanjaRevizijeNabavke varchar(100),
+    statusNabavke varchar(50),
+    foreign key(medicinskoOsobljeId) references korisnici(id) on delete cascade,
+    vakcinaId bigint not null,
+    foreign key(vakcinaId) references Vakcina(id) on delete cascade,
+    primary key(id)
     
+);
+
+create table prijavaZaVakcinu(
+	id bigint auto_increment,
+    datumVremePrijave datetime not null,
+    pacijentId bigint not null,
+    foreign key(pacijentId) references korisnici(id) on delete cascade,
+    vakcinaId bigint not null,
+    foreign key(vakcinaId) references Vakcina(id) on delete cascade,
+    primary key(id)
 );
