@@ -71,7 +71,7 @@ create table nabavkaVakcine (
     medicinskoOsoboljeId bigint not null,
     razlogOdbijanjaRevizijeNabavke varchar(100),
     statusNabavke varchar(50),
-    foreign key(medicinskoOsobljeId) references korisnici(id) on delete cascade,
+    foreign key(medicinskoOsoboljeId) references korisnici(id) on delete cascade,
     vakcinaId bigint not null,
     foreign key(vakcinaId) references Vakcina(id) on delete cascade,
     primary key(id)
@@ -87,3 +87,16 @@ create table prijavaZaVakcinu(
     foreign key(vakcinaId) references Vakcina(id) on delete cascade,
     primary key(id)
 );
+
+insert into korisnici(email, lozinka, ime, prezime, datumRodjenja, jmbg, adresa, brTelefona, datumVremeRegistracije, uloga)
+ values("stevan@gmail.com","lozinka", "Stevan", "Stankovic", "2002-09-23", "1234567891234", "Safarikova 31", "061123123", now(), "Pacijent");
+insert into korisnici(email, lozinka, ime, prezime, datumRodjenja, jmbg, adresa, brTelefona, datumVremeRegistracije, uloga)
+ values("milica@gmail.com","lozinka", "Milica", "Milic", "2002-09-23", "1234567891234", "Hajduk Stanka 31", "061123123", now(), "Medicinsko_osoblje");
+insert into proizvodjacVakcina(proizvodjac, drzavaProizvodnje) values ("Ime Proizvodjaca", "Srbija");
+insert into vakcina(ime, kolicina, proizvodjacId) values("Fajzer", 10, 1);
+insert into kartonPacijenta(doza, datumVremeDobijanjaDoze, pacijentId) values (1, now(), 1);
+insert into nabavkaVakcine(kolicinaVakcina, razlogNabavke, datumKreiranjaZahteva, medicinskoOsoboljeId, razlogOdbijanjaRevizijeNabavke, statusNabavke, vakcinaId)
+ values(5, "Nema dovoljno vakcina", now(), 2, null, "Odobreno", 1);
+insert into prijavaZaVakcinu(datumVremePrijave, pacijentId, vakcinaId) values (now(), 1, 1);
+select * from prijavaZaVakcinu;
+
