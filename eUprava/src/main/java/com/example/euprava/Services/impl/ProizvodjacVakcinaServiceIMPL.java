@@ -42,11 +42,4 @@ public class ProizvodjacVakcinaServiceIMPL implements ProizvodjacVakcinaService{
         return proizvodjacVakcina;
     }
 
-    @Override
-    public List<ProizvodjacVakcina> find(String proizvodjac) {
-        if(proizvodjac != null){
-            return proizvodjacVakcinaDAO.findAll();
-        }
-        return proizvodjacVakcinaDAO.find(proizvodjac);
-    }
 }

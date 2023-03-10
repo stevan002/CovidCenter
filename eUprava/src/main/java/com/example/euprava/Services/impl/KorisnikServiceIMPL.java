@@ -16,13 +16,13 @@ public class KorisnikServiceIMPL implements KorisnikService {
         return korisnikDAO.findOne(id);
     }
     @Override
-    public Korisnik findOne(String email) {
-        return korisnikDAO.findOne(email);
+    public Korisnik findOneByEmail(String email) {
+        return korisnikDAO.findOneByEmail(email);
     }
 
     @Override
-    public Korisnik findOne(String email, String lozinka) {
-        return korisnikDAO.findOne(email, lozinka);
+    public Korisnik findOneByEmailAndPassword(String email, String lozinka) {
+        return korisnikDAO.findOneByEmailAndPassword(email, lozinka);
     }
 
     @Override
@@ -52,11 +52,5 @@ public class KorisnikServiceIMPL implements KorisnikService {
         }
         return korisnik;
     }
-
-    @Override
-    public List<Korisnik> find(String email, String ime, String prezime, String adresa) {
-        return korisnikDAO.find(email, ime, prezime, adresa);
-    }
-
 
 }

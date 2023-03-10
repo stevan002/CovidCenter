@@ -10,6 +10,4 @@ public interface ProizvodjacVakcinaService {
     ProizvodjacVakcina save(ProizvodjacVakcina proizvodjacVakcina);
     ProizvodjacVakcina update(ProizvodjacVakcina proizvodjacVakcina);
     ProizvodjacVakcina delete(Long id);
-    List<ProizvodjacVakcina> find(String proizvodjac);
-
 }
