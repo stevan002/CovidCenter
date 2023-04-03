@@ -9,7 +9,7 @@ public interface VakcinaDAO {
     public Vakcina findOne(Long id);
     public Vakcina findOneByNaziv(String nazivProizvodjaca);
     public Vakcina findOneByDrzava(String drzavaProizvodnje);
-    public Vakcina findOneByKolicina(int minKolicina, int maxKolicina);
+    public List<Vakcina> findOneByKolicina(int minKolicina, int maxKolicina);
     public List<Vakcina> sortAll(String sort);
     public List<Vakcina> findAll();
     public int save(Vakcina vakcina);

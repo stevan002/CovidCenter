@@ -3,9 +3,10 @@ package com.example.euprava.Services.impl;
 import com.example.euprava.Models.VestObolelima;
 import com.example.euprava.Services.VestObolelimaService;
 import com.example.euprava.dao.VestObolelimaDAO;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class VestObolelimaServiceIMPL implements VestObolelimaService {
 
     private VestObolelimaDAO vestObolelimaDAO;

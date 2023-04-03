@@ -3,9 +3,10 @@ package com.example.euprava.Services.impl;
 import com.example.euprava.Models.Vest;
 import com.example.euprava.Services.VestService;
 import com.example.euprava.dao.VestDAO;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class VestServiceIMPL implements VestService {
     private VestDAO vestDAO;
 

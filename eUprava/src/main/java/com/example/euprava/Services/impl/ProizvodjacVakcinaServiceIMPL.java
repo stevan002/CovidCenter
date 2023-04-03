@@ -4,9 +4,10 @@ import com.example.euprava.Models.ProizvodjacVakcina;
 import com.example.euprava.Services.ProizvodjacVakcinaService;
 import com.example.euprava.dao.ProizvodjacVakcinaDAO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class ProizvodjacVakcinaServiceIMPL implements ProizvodjacVakcinaService{
     //@Autowired
     private ProizvodjacVakcinaDAO proizvodjacVakcinaDAO;

@@ -92,11 +92,30 @@ insert into korisnici(email, lozinka, ime, prezime, datumRodjenja, jmbg, adresa,
  values("stevan@gmail.com","lozinka", "Stevan", "Stankovic", "2002-09-23", "1234567891234", "Safarikova 31", "061123123", now(), "Pacijent");
 insert into korisnici(email, lozinka, ime, prezime, datumRodjenja, jmbg, adresa, brTelefona, datumVremeRegistracije, uloga)
  values("milica@gmail.com","lozinka", "Milica", "Milic", "2002-09-23", "1234567891234", "Hajduk Stanka 31", "061123123", now(), "Medicinsko_osoblje");
+insert into korisnici(email, lozinka, ime, prezime, datumRodjenja, jmbg, adresa, brTelefona, datumVremeRegistracije, uloga)
+ values("mihajlo@gmail.com","lozinka", "Mihajlo", "Mandic", "2002-09-23", "1234567891234", "Hajduk Stanka 31", "061123123", now(), "Pacijent");
+
 insert into proizvodjacVakcina(proizvodjac, drzavaProizvodnje) values ("Ime Proizvodjaca", "Srbija");
+insert into proizvodjacVakcina(proizvodjac, drzavaProizvodnje) values ("Ime Proizvodjaca 2", "Engleska");
+
 insert into vakcina(ime, kolicina, proizvodjacId) values("Fajzer", 10, 1);
+insert into vakcina(ime, kolicina, proizvodjacId) values("Ruska", 10, 2);
+
 insert into kartonPacijenta(doza, datumVremeDobijanjaDoze, pacijentId) values (1, now(), 1);
+insert into kartonPacijenta(doza, datumVremeDobijanjaDoze, pacijentId) values (1, now(), 3);
+
 insert into nabavkaVakcine(kolicinaVakcina, razlogNabavke, datumKreiranjaZahteva, medicinskoOsoboljeId, razlogOdbijanjaRevizijeNabavke, statusNabavke, vakcinaId)
  values(5, "Nema dovoljno vakcina", now(), 2, null, "Odobreno", 1);
+insert into nabavkaVakcine(kolicinaVakcina, razlogNabavke, datumKreiranjaZahteva, medicinskoOsoboljeId, razlogOdbijanjaRevizijeNabavke, statusNabavke, vakcinaId)
+ values(5, "Nema dovoljno vakcina", now(), 2, null, "Odobreno", 2);
+ 
 insert into prijavaZaVakcinu(datumVremePrijave, pacijentId, vakcinaId) values (now(), 1, 1);
+insert into prijavaZaVakcinu(datumVremePrijave, pacijentId, vakcinaId) values (now(), 3, 2);
 select * from prijavaZaVakcinu;
+select * from korisnici;
+select * from nabavkaVakcine;
+
+select vak.id, vak.ime, vak.kolicina, vak.proizvodjacId, pro.Id from vakcina vak, proizvodjacVakcina pro
+where vak.proizvodjacId=pro.Id and pro.proizvodjac=Fajzer
+order by vak.id
 

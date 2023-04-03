@@ -29,10 +29,22 @@ public class KorisnikDAOImpl implements KorisnikDAO{
         @Override
         public void processRow(ResultSet rs) throws SQLException {
             int index = 1;
-            //DOVRSITI SVE
-            Korisnik korisnik = korisnici.get(0); //umesto 0 staviti id
+            Long id = rs.getLong(index++);
+            String email = rs.getString(index++);
+            String lozinka = rs.getString(index++);
+            String ime = rs.getString(index++);
+            String prezime = rs.getString(index++);
+            Date datumRodjenja = rs.getDate(index++);
+            String jmbg = rs.getString(index++);
+            String adresa = rs.getString(index++);
+            String brTelefona = rs.getString(index++);
+            LocalDateTime datumVremeRegistracije = rs.getTimestamp(index++).toLocalDateTime(); //chatGPT
+            String enumString = rs.getString(index++);
+            EUloga uloga = EUloga.valueOf(enumString); //chatGPT
+
+            Korisnik korisnik = korisnici.get(id);
             if(korisnik == null){
-                korisnik = new Korisnik();
+                korisnik = new Korisnik(id, email, lozinka, ime, prezime, datumRodjenja, jmbg, adresa, brTelefona, datumVremeRegistracije, uloga);
                 korisnici.put(korisnik.getId(), korisnik);
             }
         }
@@ -110,7 +122,18 @@ public class KorisnikDAOImpl implements KorisnikDAO{
 
                 PreparedStatement preparedStatement= con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
                 int index = 1;
-                //ODRADITI SETTERE
+                //PROVERITI
+                preparedStatement.setString(index++, korisnik.getEmail());
+                preparedStatement.setString(index++, korisnik.getLozinka());
+                preparedStatement.setString(index++, korisnik.getIme());
+                preparedStatement.setString(index++, korisnik.getPrezime());
+                preparedStatement.setDate(index++, korisnik.getDatumRodjenja());
+                preparedStatement.setString(index++, korisnik.getJmbg());
+                preparedStatement.setString(index++, korisnik.getAdresa());
+                preparedStatement.setString(index++, korisnik.getBrTelefona());
+                Timestamp timestamp = Timestamp.valueOf(korisnik.getDatumVremeRegistracije());
+                preparedStatement.setTimestamp(index++, timestamp); //chatGPT
+                preparedStatement.setString(index++, korisnik.getUloga().name()); //chatGPT
 
 
                 return preparedStatement;

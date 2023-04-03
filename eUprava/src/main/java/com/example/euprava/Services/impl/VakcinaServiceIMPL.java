@@ -3,9 +3,10 @@ package com.example.euprava.Services.impl;
 import com.example.euprava.Models.Vakcina;
 import com.example.euprava.Services.VakcinaService;
 import com.example.euprava.dao.VakcinaDAO;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class VakcinaServiceIMPL implements VakcinaService {
 
     private VakcinaDAO vakcinaDAO;

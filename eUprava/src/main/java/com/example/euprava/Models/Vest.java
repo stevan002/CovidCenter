@@ -1,17 +1,18 @@
 package com.example.euprava.Models;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 public class Vest {
     private Long id;
     private String naziv;
     private String sadrzaj;
-    private LocalDateTime datumVremeObjavljivanja;
+    private Date datumVremeObjavljivanja;
 
     public Vest() {
     }
 
-    public Vest(Long id, String naziv, String sadrzaj, LocalDateTime datumVremeObjavljivanja) {
+    public Vest(Long id, String naziv, String sadrzaj, Date datumVremeObjavljivanja) {
         this.id = id;
         this.naziv = naziv;
         this.sadrzaj = sadrzaj;
@@ -34,11 +35,11 @@ public class Vest {
         this.sadrzaj = sadrzaj;
     }
 
-    public LocalDateTime getDatumVremeObjavljivanja() {
+    public Date getDatumVremeObjavljivanja() {
         return datumVremeObjavljivanja;
     }
 
-    public void setDatumVremeObjavljivanja(LocalDateTime datumVremeObjavljivanja) {
+    public void setDatumVremeObjavljivanja(Date datumVremeObjavljivanja) {
         this.datumVremeObjavljivanja = datumVremeObjavljivanja;
     }
 
