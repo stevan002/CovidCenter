@@ -8,6 +8,7 @@ public interface VakcinaService {
     Vakcina findOne(Long id);
     Vakcina findOneByNaziv(String nazivProizvodjaca);
     Vakcina findOneByDrzava(String drzavaProizvodnje);
+    List<Vakcina> findByKolicina(int min, int max);
     List<Vakcina> findAll();
     Vakcina save(Vakcina vakcina);
     Vakcina update(Vakcina vakcina);

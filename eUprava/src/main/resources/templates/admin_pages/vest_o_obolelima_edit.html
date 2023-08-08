@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet"  type="text/css"  href="css/StiloviForma.css"/>
+</head>
+<body>
+    <form th:action="@{/vestObolelima/save}" method="post" th:object="${vest}">
+        <input type="hidden" th:field="*{id}">
+
+        <div>
+            <div>
+                <label for="oboleli">Broj obolelih</label>
+                <input type="number" id="oboleli" th:field="*{brObolelih}" required>
+            </div>
+            <div>
+                <label for="testirani">Broj testiranih</label>
+                <input type="number" id="testirani" th:field="*{brTestiranih}" required>
+            </div>
+            <div>
+                <label for="respirator">Broj pacijenata na respiratoru</label>
+                <input type="number" id="respirator" th:field="*{brNaRespiratorima}" required>
+            </div>
+            <div>
+                <label for="hospitalizovani">Broj hospitalizovanih</label>
+                <input type="number" id="hospitalizovani" th:field="*{brHospitalizovanih}" required>
+            </div>
+        </div>
+
+        <button type="submit">Submit</button>
+        <button type="button" onclick="preusmjeriNaVestObolelima()">Cancel</button>
+    </form>
+</body>
+</html>
+
+<script>
+    function preusmjeriNaVestObolelima() {
+        window.location.href = "/vestObolelima";
+    }
+</script>

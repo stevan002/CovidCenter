@@ -50,7 +50,7 @@ public class VakcinaDAOImpl implements VakcinaDAO {
     @Override
     public Vakcina findOne(Long id) {
         String sql = "select vak.id, vak.ime, vak.kolicina, vak.proizvodjacId from vakcina vak, proizvodjacvakcina p " +
-                "where vak.id=? " +
+                "where vak.id=? and vak.proizvodjacId = p.id " +
                 "order by vak.id";
 
         VakcinaRowCallBackHandler rowCallBackHandler = new VakcinaRowCallBackHandler();
@@ -61,7 +61,7 @@ public class VakcinaDAOImpl implements VakcinaDAO {
 
     @Override
     public Vakcina findOneByNaziv(String nazivProizvodjaca) {
-        //PRODISKUTOVATI O OVOME
+
         String sql = "select vak.id, vak.ime, vak.kolicina, vak.proizvodjacId, pro.Id from vakcina vak, proizvodjacVakcina pro " +
                 "where vak.proizvodjacId=pro.Id and pro.proizvodjac=?" +
                 "order by vak.id";
@@ -73,7 +73,7 @@ public class VakcinaDAOImpl implements VakcinaDAO {
 
     @Override
     public Vakcina findOneByDrzava(String drzavaProizvodnje) {
-        //PRODISKUTOVATI O OVOME
+
         String sql = "select vak.id, vak.ime, vak.kolicina, vak.proizvodjacId, pro.Id from vakcina vak, proizvodjacVakcina pro " +
                 "where vak.proizvodjacId=pro.Id and pro.drzavaProizvodnje=?" +
                 "order by vak.id";
@@ -85,14 +85,14 @@ public class VakcinaDAOImpl implements VakcinaDAO {
 
     @Override
     public List<Vakcina> findOneByKolicina(int minKolicina, int maxKolicina) {
-        //PRODISKUTOVATI O OVOME
+        //2.nacin sa beetwen
         ArrayList<Object> listaArgumenata = new ArrayList<>();
 
         String sql = "select v.id, v.ime, v.kolicina, v.proizvodjacId from vakcina v ";
         StringBuffer whereSql = new StringBuffer(" WHERE ");
         boolean imaArgumenata = false;
 
-        if(minKolicina != 0){
+        if(minKolicina >= 0){
             if(imaArgumenata)
                 whereSql.append(" AND ");
             whereSql.append("v.kolicina >= ?");
@@ -121,8 +121,43 @@ public class VakcinaDAOImpl implements VakcinaDAO {
 
     @Override
     public List<Vakcina> sortAll(String sort) {
-        //DISKUTOVATI O OVOME
-        return null;
+        if(sort.contains("Rastuce-Kolicina")) {
+            String sql = "select v.id, v.ime, v.kolicina, v.proizvodjacId from vakcina v " +
+                    "order by v.kolicina asc";
+            VakcinaRowCallBackHandler rowCallBackHandler = new VakcinaRowCallBackHandler();
+            jdbcTemplate.query(sql, rowCallBackHandler);
+            return rowCallBackHandler.getVakcine();
+        }
+        else if(sort.contains("Opadajuce-Kolicina")){
+            String sql = "select v.id, v.ime, v.kolicina, v.proizvodjacId from vakcina v " +
+                    "order by v.kolicina desc";
+            VakcinaRowCallBackHandler rowCallBackHandler = new VakcinaRowCallBackHandler();
+            jdbcTemplate.query(sql, rowCallBackHandler);
+            return rowCallBackHandler.getVakcine();
+        }
+        else if(sort.contains("Naziv-Proizvodjaca")){
+            String sql = "select v.id, v.ime, v.kolicina, v.proizvodjacId from vakcina v, proizvodjacvakcina p " +
+                    "where p.id = v.proizvodjacId " +
+                    "order by p.proizvodjac";
+            VakcinaRowCallBackHandler rowCallBackHandler = new VakcinaRowCallBackHandler();
+            jdbcTemplate.query(sql, rowCallBackHandler);
+            return rowCallBackHandler.getVakcine();
+        }
+        else if(sort.contains("Drzava-Proizvodjaca")){
+            String sql = "select v.id, v.ime, v.kolicina, v.proizvodjacId from vakcina v, proizvodjacvakcina p " +
+                    "where p.id = v.proizvodjacId " +
+                    "order by p.drzavaProizvodnje";
+            VakcinaRowCallBackHandler rowCallBackHandler = new VakcinaRowCallBackHandler();
+            jdbcTemplate.query(sql, rowCallBackHandler);
+            return rowCallBackHandler.getVakcine();
+        }
+        else {
+            String sql = "select v.id, v.ime, v.kolicina, v.proizvodjacId from vakcina v " +
+                    "order by v.id";
+            VakcinaRowCallBackHandler rowCallBackHandler = new VakcinaRowCallBackHandler();
+            jdbcTemplate.query(sql, rowCallBackHandler);
+            return rowCallBackHandler.getVakcine();
+        }
     }
 
     @Override

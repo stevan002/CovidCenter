@@ -12,7 +12,7 @@ create table korisnici(
     jmbg varchar(13) not null,
     adresa varchar(50) not null,
     brTelefona varchar(20) not null,
-    datumVremeRegistracije datetime,
+    datumVremeRegistracije datetime not null,
     uloga enum("Medicinsko_osoblje", "Pacijent", "Administrator")  not null,
     PRIMARY KEY(id)
 );
@@ -46,10 +46,9 @@ create table vestoObolelima(
 	id bigint auto_increment,
     brojObolelih int not null,
     brojTestiranih int not null,
-    brojUkupnoObolelih int not null,
     brojHospitalizovanih int not null,
     brojNaRespiratorima int not null,
-    datumObjavljivanja date not null,
+    datumObjavljivanja datetime not null,
     primary key(id)
 );
 
@@ -111,11 +110,15 @@ insert into nabavkaVakcine(kolicinaVakcina, razlogNabavke, datumKreiranjaZahteva
  
 insert into prijavaZaVakcinu(datumVremePrijave, pacijentId, vakcinaId) values (now(), 1, 1);
 insert into prijavaZaVakcinu(datumVremePrijave, pacijentId, vakcinaId) values (now(), 3, 2);
-select * from prijavaZaVakcinu;
-select * from korisnici;
-select * from nabavkaVakcine;
 
-select vak.id, vak.ime, vak.kolicina, vak.proizvodjacId, pro.Id from vakcina vak, proizvodjacVakcina pro
-where vak.proizvodjacId=pro.Id and pro.proizvodjac=Fajzer
-order by vak.id
+CREATE FUNCTION get_total_infected(vest_id INT) RETURNS INT
+    READS SQL DATA
+    DETERMINISTIC
+BEGIN
+    DECLARE ukupno_zarazenih INT;
+    SELECT SUM(brojObolelih) INTO ukupno_zarazenih FROM vestoObolelima WHERE datumObjavljivanja <= (select datumObjavljivanja from vestoObolelima
+                                                                                    where id = vest_id);
+    RETURN ukupno_zarazenih;
+END;
+
 

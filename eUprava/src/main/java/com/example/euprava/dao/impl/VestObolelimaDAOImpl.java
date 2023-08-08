@@ -11,6 +11,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -32,7 +34,7 @@ public class VestObolelimaDAOImpl implements VestObolelimaDAO {
             int brojUkupnoObolelih = rs.getInt(index++);
             int brojHospitalizovanih = rs.getInt(index++);
             int brojNaRespiratorima = rs.getInt(index++);
-            Date datumVremeObjavljivanja = rs.getDate(index++);
+            LocalDateTime datumVremeObjavljivanja = rs.getTimestamp(index++).toLocalDateTime();
 
             VestObolelima vestObolelima = vesti.get(id);
             if(vestObolelima == null){
@@ -46,19 +48,22 @@ public class VestObolelimaDAOImpl implements VestObolelimaDAO {
     }
     @Override
     public VestObolelima findOne(Long id) {
-        String sql = "select v.id, v.brojObolelih, v.brojTestiranih, v.brojUkupnoObolelih, v.brojHospitalizovanih" +
-                ", v.brojNaRespiratorima, v.datumObjavljivanja " +
+        String sql = "select v.id, v.brojObolelih, v.brojTestiranih, v.brojHospitalizovanih" +
+                ", v.brojNaRespiratorima, get_total_infected(v.id), v.datumObjavljivanja " +
                 "from vestoObolelima v " +
-                "where id=? " +
-                "order by id=?";
+                "where v.id=? " +
+                "order by v.id";
         VestObolelimaRowCallBackHandler rowCallBackHandler = new VestObolelimaRowCallBackHandler();
         jdbcTemplate.query(sql, rowCallBackHandler, id);
+        if(rowCallBackHandler.getVesti().size() == 0){
+            return null;
+        }
         return rowCallBackHandler.getVesti().get(0);
     }
 
     @Override
     public List<VestObolelima> findAll() {
-        String sql = "select v.id, v.brojObolelih, v.brojTestiranih, v.brojUkupnoObolelih, v.brojHospitalizovanih" +
+        String sql = "select v.id, v.brojObolelih, v.brojTestiranih, get_total_infected(v.id), v.brojHospitalizovanih" +
                 ", v.brojNaRespiratorima, v.datumObjavljivanja " +
                 "from vestoObolelima v " +
                 "order by v.id";
@@ -67,31 +72,22 @@ public class VestObolelimaDAOImpl implements VestObolelimaDAO {
         return rowCallBackHandler.getVesti();
     }
 
-    @Override
-    public JdbcTemplate count() {
-        //prodiskutovati
-        String sql = "select sum(brojObolelih) from vestoObolelima";
-        VestObolelimaRowCallBackHandler rowCallBackHandler = new VestObolelimaRowCallBackHandler();
-        jdbcTemplate.query(sql, rowCallBackHandler);
-        return jdbcTemplate;
-    }
-
     @Transactional
     @Override
     public int save(VestObolelima vestObolelima) {
         PreparedStatementCreator preparedStatementCreator = new PreparedStatementCreator() {
             @Override
             public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
-                String sql = "insert into vestoObolelima(brojObolelih, brojTestiranih, brojUkupnoObolelih, brojHospitalizovanih, brojNaRespiratorima, datumObjavljivanja) " +
-                        "values(?,?,?,?,?,?)";
+                String sql = "insert into vestoObolelima(brojObolelih, brojTestiranih, brojHospitalizovanih, brojNaRespiratorima, datumObjavljivanja) " +
+                        "values(?,?,?,?,?)";
                 PreparedStatement preparedStatement = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
                 int index = 1;
                 preparedStatement.setInt(index++, vestObolelima.getBrObolelih());
                 preparedStatement.setInt(index++, vestObolelima.getBrTestiranih());
-                preparedStatement.setInt(index++, vestObolelima.getBrUkupnoObolelih());
                 preparedStatement.setInt(index++, vestObolelima.getBrHospitalizovanih());
                 preparedStatement.setInt(index++, vestObolelima.getBrNaRespiratorima());
-                preparedStatement.setDate(index++, (Date) vestObolelima.getDatumVremeObjavljivanja());
+                Timestamp timestamp = Timestamp.valueOf(vestObolelima.getDatumVremeObjavljivanja());
+                preparedStatement.setString(index++, timestamp.toString());
 
                 return preparedStatement;
             }
@@ -103,9 +99,12 @@ public class VestObolelimaDAOImpl implements VestObolelimaDAO {
     @Transactional
     @Override
     public int update(VestObolelima vestObolelima) {
-        String sql = "update vestoObolelima set brojObolelih=?, brojTestiranih=?, brojUkupnoObolelih=?, brojHospitalizovanih=?" +
+        String sql = "update vestoObolelima set brojObolelih=?, brojTestiranih=?, brojHospitalizovanih=?" +
                 ", brojNaRespiratorima=?, datumObjavljivanja=? where id=?";
-        boolean uspeh = jdbcTemplate.update(sql, vestObolelima.getBrObolelih(), vestObolelima.getBrTestiranih(), vestObolelima.getBrUkupnoObolelih(), vestObolelima.getBrHospitalizovanih(), vestObolelima.getBrNaRespiratorima(), vestObolelima.getDatumVremeObjavljivanja())==1;
+
+        boolean uspeh = jdbcTemplate.update(sql, vestObolelima.getBrObolelih(), vestObolelima.getBrTestiranih(),
+                vestObolelima.getBrHospitalizovanih(), vestObolelima.getBrNaRespiratorima(),
+                Timestamp.valueOf(vestObolelima.getDatumVremeObjavljivanja()).toString(), vestObolelima.getId())==1;
         return uspeh?1:0;
     }
     @Transactional

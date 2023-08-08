@@ -2,7 +2,6 @@ package com.example.euprava.dao.impl;
 
 import com.example.euprava.Models.Vest;
 import com.example.euprava.dao.VestDAO;
-import org.hibernate.dialect.temptable.StandardTemporaryTableExporter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;

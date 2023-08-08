@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 @Service
 public class ProizvodjacVakcinaServiceIMPL implements ProizvodjacVakcinaService{
-    //@Autowired
+    @Autowired
     private ProizvodjacVakcinaDAO proizvodjacVakcinaDAO;
 
     @Override

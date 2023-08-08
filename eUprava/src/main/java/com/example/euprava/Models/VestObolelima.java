@@ -1,7 +1,6 @@
 package com.example.euprava.Models;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 public class VestObolelima {
     private Long id;
@@ -10,12 +9,13 @@ public class VestObolelima {
     private int brUkupnoObolelih;
     private int brHospitalizovanih;
     private int brNaRespiratorima;
-    private Date datumVremeObjavljivanja;
+    private LocalDateTime datumVremeObjavljivanja;
 
     public VestObolelima() {
+        this.datumVremeObjavljivanja = LocalDateTime.now();
     }
 
-    public VestObolelima(Long id, int brObolelih, int brTestiranih, int brUkupnoObolelih, int brHospitalizovanih, int brNaRespiratorima, Date datumVremeObjavljivanja) {
+    public VestObolelima(Long id, int brObolelih, int brTestiranih, int brUkupnoObolelih, int brHospitalizovanih, int brNaRespiratorima, LocalDateTime datumVremeObjavljivanja) {
         this.id = id;
         this.brObolelih = brObolelih;
         this.brTestiranih = brTestiranih;
@@ -73,11 +73,11 @@ public class VestObolelima {
         this.brNaRespiratorima = brNaRespiratorima;
     }
 
-    public Date getDatumVremeObjavljivanja() {
+    public LocalDateTime getDatumVremeObjavljivanja() {
         return datumVremeObjavljivanja;
     }
 
-    public void setDatumVremeObjavljivanja(Date datumVremeObjavljivanja) {
+    public void setDatumVremeObjavljivanja(LocalDateTime datumVremeObjavljivanja) {
         this.datumVremeObjavljivanja = datumVremeObjavljivanja;
     }
 

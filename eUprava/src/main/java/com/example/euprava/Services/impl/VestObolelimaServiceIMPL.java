@@ -3,16 +3,17 @@ package com.example.euprava.Services.impl;
 import com.example.euprava.Models.VestObolelima;
 import com.example.euprava.Services.VestObolelimaService;
 import com.example.euprava.dao.VestObolelimaDAO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
 public class VestObolelimaServiceIMPL implements VestObolelimaService {
-
+    @Autowired
     private VestObolelimaDAO vestObolelimaDAO;
 
     @Override
-    public VestObolelima findOne(Long id) {
+    public VestObolelima getOne(Long id) {
         return vestObolelimaDAO.findOne(id);
     }
 
@@ -22,21 +23,16 @@ public class VestObolelimaServiceIMPL implements VestObolelimaService {
     }
 
     @Override
-    public VestObolelima save(VestObolelima vestObolelima) {
-        vestObolelimaDAO.save(vestObolelima);
-        return vestObolelima;
+    public void save(VestObolelima vestObolelima) {
+        if(vestObolelimaDAO.findOne(vestObolelima.getId()) != null){
+            vestObolelimaDAO.update(vestObolelima);
+        }else{
+            vestObolelimaDAO.save(vestObolelima);
+        }
     }
 
     @Override
-    public VestObolelima update(VestObolelima vestObolelima) {
-        vestObolelimaDAO.update(vestObolelima);
-        return vestObolelima;
-    }
-
-    @Override
-    public VestObolelima delete(Long id) {
-        VestObolelima vestObolelima = vestObolelimaDAO.findOne(id);
+    public void delete(Long id) {
         vestObolelimaDAO.delete(id);
-        return vestObolelima;
     }
 }

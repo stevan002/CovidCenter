@@ -3,12 +3,13 @@ package com.example.euprava.Services.impl;
 import com.example.euprava.Models.Vakcina;
 import com.example.euprava.Services.VakcinaService;
 import com.example.euprava.dao.VakcinaDAO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
 public class VakcinaServiceIMPL implements VakcinaService {
-
+    @Autowired
     private VakcinaDAO vakcinaDAO;
 
 
@@ -25,6 +26,11 @@ public class VakcinaServiceIMPL implements VakcinaService {
     @Override
     public Vakcina findOneByDrzava(String drzavaProizvodnje) {
         return vakcinaDAO.findOneByDrzava(drzavaProizvodnje);
+    }
+
+    @Override
+    public List<Vakcina> findByKolicina(int min, int max) {
+        return vakcinaDAO.findOneByKolicina(min, max);
     }
 
     @Override

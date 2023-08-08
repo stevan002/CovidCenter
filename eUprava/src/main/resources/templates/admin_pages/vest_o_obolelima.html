@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Vesti Obolelima</title>
+    <link rel="stylesheet"  type="text/css"  href="css/StiloviTabela.css"/>
+</head>
+<body>
+<h1>Vesti o Obolelima</h1>
+<p th:text="${poruka}"></p>
+<table style="border: 1px solid">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Broj Obolelih</th>
+        <th>Broj Testiranih</th>
+        <th>Broj Pacijenata Na Respiratoru</th>
+        <th>Broj Hospitalizovanih</th>
+        <th>Broj Ukupno Obolelih</th>
+        <th>Datum i vreme objavljivanja izvestaja</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="vest : ${listVest}">
+        <td th:text="${vest.id}"></td>
+        <td th:text="${vest.brObolelih}"></td>
+        <td th:text="${vest.brTestiranih}"></td>
+        <td th:text="${vest.brNaRespiratorima}"></td>
+        <td th:text="${vest.brHospitalizovanih}"></td>
+        <td th:text="${vest.brUkupnoObolelih}"></td>
+        <td th:text="${vest.datumVremeObjavljivanja}"></td>
+        <td><a th:href="@{'/vestObolelima/edit/' + ${vest.id}}" >Izmeni</a></td>
+        <td><a th:href="@{'/vestObolelima/delete/' + ${vest.id}}">Izbrisi</a></td>
+    </tr>
+    </tbody>
+</table>
+<form th:action="@{/vestObolelima/save}" method="post" th:object="${vest}">
+    <input type="hidden" th:field="*{id}">
+
+    <div>
+        <div>
+            <label for="oboleli">Broj obolelih</label>
+            <input type="number" id="oboleli" th:field="*{brObolelih}" required>
+        </div>
+        <div>
+            <label for="testirani">Broj testiranih</label>
+            <input type="number" id="testirani" th:field="*{brTestiranih}">
+        </div>
+        <div>
+            <label for="respirator">Broj na respiratoru</label>
+            <input type="number" id="respirator" th:field="*{brNaRespiratorima}" required>
+        </div>
+        <div>
+            <label for="hospitalizovani">Broj hospitalizovanih</label>
+            <input type="number" id="hospitalizovani" th:field="*{brHospitalizovanih}" required>
+        </div>
+
+        <button type="submit">Submit</button>
+        <button type="button">Cancel</button>
+    </div>
+</form>
+</body>
+</html>
