@@ -31,7 +31,7 @@ public class VestDAOImpl implements VestDAO {
             Long id = rs.getLong(index++);
             String naziv = rs.getString(index++);
             String sadrzaj = rs.getString(index++);
-            Date datumVremeObjavljivanje = rs.getDate(index++);
+            LocalDateTime datumVremeObjavljivanje = rs.getTimestamp(index++).toLocalDateTime();
             Vest vest = vesti.get(id);
             if(vest == null){
                 vest = new Vest(id, naziv, sadrzaj, datumVremeObjavljivanje);
@@ -45,11 +45,14 @@ public class VestDAOImpl implements VestDAO {
     @Override
     public Vest findOne(Long id) {
         String sql = "select v.id, v.naziv, v.sadrzaj, v.datumVremeObjavljivanje from vest v " +
-                "where id=? " +
-                "order by id=?";
+                "where v.id=? " +
+                "order by v.id";
 
         VestRowCallBackHandler rowCallBackHandler = new VestRowCallBackHandler();
         jdbcTemplate.query(sql, rowCallBackHandler, id);
+        if(rowCallBackHandler.getVesti().size() == 0){
+            return null;
+        }
         return rowCallBackHandler.getVesti().get(0);
     }
 
@@ -59,7 +62,9 @@ public class VestDAOImpl implements VestDAO {
                 "order by v.id";
         VestRowCallBackHandler rowCallBackHandler = new VestRowCallBackHandler();
         jdbcTemplate.query(sql, rowCallBackHandler);
-
+        if(rowCallBackHandler.getVesti().size() == 0){
+            return null;
+        }
         return rowCallBackHandler.getVesti();
     }
     @Transactional
@@ -75,8 +80,8 @@ public class VestDAOImpl implements VestDAO {
                 int index = 1;
                 preparedStatement.setString(index++, vest.getNaziv());
                 preparedStatement.setString(index++, vest.getSadrzaj());
-                preparedStatement.setDate(index++, (Date) vest.getDatumVremeObjavljivanja());
-
+                Timestamp timestamp = Timestamp.valueOf(vest.getDatumVremeObjavljivanja());
+                preparedStatement.setString(index++, timestamp.toString());
                 return preparedStatement;
             }
         };
@@ -95,7 +100,8 @@ public class VestDAOImpl implements VestDAO {
     public int update(Vest vest) {
         String sql = "update vest set naziv=?, sadrzaj=?, datumVremeObjavljivanje=? " +
                 "where id=?";
-        boolean uspeh = jdbcTemplate.update(sql, vest.getNaziv(), vest.getSadrzaj(), vest.getDatumVremeObjavljivanja())==1;
+        boolean uspeh = jdbcTemplate.update(sql, vest.getNaziv(), vest.getSadrzaj(),
+                Timestamp.valueOf(vest.getDatumVremeObjavljivanja()), vest.getId())==1;
         return uspeh?1:0;
     }
 }

@@ -26,10 +26,9 @@ public class VestObolelimaController {
         return "admin_pages/vest_o_obolelima";
     }
 
-    @GetMapping("/vestObolelima/new")
+    @GetMapping("/vestObolelima/create")
     public String showForm(Model model){
         model.addAttribute("vest", new VestObolelima());
-        model.addAttribute("naslovStranice", "Dodaj vest");
         return "admin_pages/vest_o_obolelima_edit";
     }
 
@@ -44,7 +43,6 @@ public class VestObolelimaController {
     public String showEditForm(@PathVariable("id") Long id, Model model){
         VestObolelima vest = vestObolelimaService.getOne(id);
         model.addAttribute("vest", vest);
-        model.addAttribute("naslovStranice", "Izmeni vest (ime:" + vest.getId() + ")");
         return "admin_pages/vest_o_obolelima_edit";
     }
 

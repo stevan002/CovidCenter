@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:action="@{/vesti/save}" method="post" th:object="${vest}">
+    <input type="hidden" th:field="*{id}">
+
+    <div>
+        <label for="naslov">Naslov</label>
+        <input type="text" th:field="*{naziv}" id="naslov">
+    </div>
+    <div>
+        <label for="sadrzaj">Sadrzaj</label>
+        <textarea th:field="*{sadrzaj}" id="sadrzaj"></textarea>
+    </div>
+
+    <div>
+        <button type="submit">Submit</button>
+        <button type="button" onclick="preusmjeriNaVesti()">Cancel</button>
+    </div>
+</form>
+</body>
+</html>
+
+<script>
+    function preusmjeriNaVesti() {
+        window.location.href = "/eUprava/vesti";
+    }
+</script>

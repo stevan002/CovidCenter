@@ -7,12 +7,13 @@ public class Vest {
     private Long id;
     private String naziv;
     private String sadrzaj;
-    private Date datumVremeObjavljivanja;
+    private LocalDateTime datumVremeObjavljivanja;
 
     public Vest() {
+        this.datumVremeObjavljivanja = LocalDateTime.now();
     }
 
-    public Vest(Long id, String naziv, String sadrzaj, Date datumVremeObjavljivanja) {
+    public Vest(Long id, String naziv, String sadrzaj, LocalDateTime datumVremeObjavljivanja) {
         this.id = id;
         this.naziv = naziv;
         this.sadrzaj = sadrzaj;
@@ -35,11 +36,11 @@ public class Vest {
         this.sadrzaj = sadrzaj;
     }
 
-    public Date getDatumVremeObjavljivanja() {
+    public LocalDateTime getDatumVremeObjavljivanja() {
         return datumVremeObjavljivanja;
     }
 
-    public void setDatumVremeObjavljivanja(Date datumVremeObjavljivanja) {
+    public void setDatumVremeObjavljivanja(LocalDateTime datumVremeObjavljivanja) {
         this.datumVremeObjavljivanja = datumVremeObjavljivanja;
     }
 

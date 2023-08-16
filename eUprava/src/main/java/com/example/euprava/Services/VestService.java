@@ -7,7 +7,7 @@ import java.util.List;
 public interface VestService {
     Vest findOne(Long id);
     List<Vest> findAll();
-    Vest save(Vest vest);
-    Vest delete(Long id);
+    void save(Vest vest);
+    void delete(Long id);
     Vest update(Vest vest);
 }

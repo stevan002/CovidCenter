@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Vesti</title>
+    <link rel="stylesheet"  type="text/css"  href="css/StiloviTabela.css"/>
+</head>
+<body>
+<div>
+    <a th:href="@{'/vesti/create'}">Kreiraj vest</a>
+</div>
+    <table style="border: 1px solid">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Naslov</th>
+            <th>Sadrzaj</th>
+            <th>Datum i vreme objavljivanja izvestaja</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="vest : ${listaVesti}">
+            <td th:text="${vest.id}"></td>
+            <td th:text="${vest.naziv}"></td>
+            <td th:text="${vest.sadrzaj}"></td>
+            <td th:text="${vest.datumVremeObjavljivanja}"></td>
+            <td><a th:href="@{'/vesti/edit/' + ${vest.id}}" >Izmeni</a></td>
+            <td><a th:href="@{'/vesti/delete/' + ${vest.id}}">Izbrisi</a></td>
+        </tr>
+        </tbody>
+    </table>
+</body>
+</html>

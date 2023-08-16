@@ -23,16 +23,18 @@ public class VestServiceIMPL implements VestService {
     }
 
     @Override
-    public Vest save(Vest vest) {
-        vestDAO.save(vest);
-        return vest;
+    public void save(Vest vest) {
+        if(vestDAO.findOne(vest.getId()) != null){
+            vestDAO.update(vest);
+        }else{
+            vestDAO.save(vest);
+        }
+
     }
 
     @Override
-    public Vest delete(Long id) {
-        Vest vest = vestDAO.findOne(id);
+    public void delete(Long id) {
         vestDAO.delete(id);
-        return vest;
     }
 
     @Override
