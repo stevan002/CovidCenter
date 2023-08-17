@@ -48,8 +48,8 @@ public class VestObolelimaDAOImpl implements VestObolelimaDAO {
     }
     @Override
     public VestObolelima findOne(Long id) {
-        String sql = "select v.id, v.brojObolelih, v.brojTestiranih, v.brojHospitalizovanih" +
-                ", v.brojNaRespiratorima, get_total_infected(v.id), v.datumObjavljivanja " +
+        String sql = "select v.id, v.brojObolelih, v.brojTestiranih, get_total_infected(v.id), v.brojHospitalizovanih" +
+                ", v.brojNaRespiratorima, v.datumObjavljivanja " +
                 "from vestoObolelima v " +
                 "where v.id=? " +
                 "order by v.id";

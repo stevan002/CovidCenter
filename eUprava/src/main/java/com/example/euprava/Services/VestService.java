@@ -9,5 +9,4 @@ public interface VestService {
     List<Vest> findAll();
     void save(Vest vest);
     void delete(Long id);
-    Vest update(Vest vest);
 }

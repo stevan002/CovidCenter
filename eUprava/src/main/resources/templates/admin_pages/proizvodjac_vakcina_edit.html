@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>[[${naslov}]]</title>
+    <link rel="stylesheet"  type="text/css"  href="css/StiloviForma.css"/>
+</head>
+<body>
+<form th:action="@{/proizvodjacVakcina/save}" method="post" th:object="${proizvodjac}">
+    <input type="hidden" th:field="*{id}">
+
+    <div>
+        <div>
+            <label for="naziv">Naziv proizvodjaca</label>
+            <input type="text" id="naziv" th:field="*{proizvodjac}" required>
+        </div>
+        <div>
+            <label for="drzava">Drzava proizvodnje</label>
+            <input type="text" id="drzava" th:field="*{drzavaProizvodnje}" required>
+        </div>
+    </div>
+
+    <button type="submit">Submit</button>
+    <button type="button" onclick="preusmjeriNaProizvodjace()">Cancel</button>
+</form>
+</body>
+</html>
+
+<script>
+    function preusmjeriNaProizvodjace() {
+        window.location.href = "/eUprava/proizvodjacVakcina";
+    }
+</script>

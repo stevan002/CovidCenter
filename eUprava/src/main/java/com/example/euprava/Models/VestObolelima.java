@@ -6,9 +6,9 @@ public class VestObolelima {
     private Long id;
     private int brObolelih;
     private int brTestiranih;
-    private int brUkupnoObolelih;
     private int brHospitalizovanih;
     private int brNaRespiratorima;
+    private int brUkupnoObolelih;
     private LocalDateTime datumVremeObjavljivanja;
 
     public VestObolelima() {

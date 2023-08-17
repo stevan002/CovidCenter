@@ -53,6 +53,10 @@ public class ProizvodjacVakcinaDAOImpl implements ProizvodjacVakcinaDAO{
         ProizvodjacVakcinaRowCallBackHandler rowCallBackHandler = new ProizvodjacVakcinaRowCallBackHandler();
         jdbcTemplate.query(sql, rowCallBackHandler, id);
 
+        if(rowCallBackHandler.getProizvodjaciVakcina().size() == 0){
+            return null;
+        }
+
         return rowCallBackHandler.getProizvodjaciVakcina().get(0);
     }
 
@@ -63,6 +67,10 @@ public class ProizvodjacVakcinaDAOImpl implements ProizvodjacVakcinaDAO{
 
         ProizvodjacVakcinaRowCallBackHandler rowCallBackHandler = new ProizvodjacVakcinaRowCallBackHandler();
         jdbcTemplate.query(sql, rowCallBackHandler);
+
+        if(rowCallBackHandler.getProizvodjaciVakcina().size() == 0){
+            return null;
+        }
 
         return rowCallBackHandler.getProizvodjaciVakcina();
     }
@@ -94,7 +102,7 @@ public class ProizvodjacVakcinaDAOImpl implements ProizvodjacVakcinaDAO{
     public int update(ProizvodjacVakcina proizvodjacVakcina) {
         String sql = "update proizvodjacVakcina set proizvodjac=?, drzavaProizvodnje=? " +
                 "where id=?";
-        boolean uspeh = jdbcTemplate.update(sql, proizvodjacVakcina.getProizvodjac(), proizvodjacVakcina.getDrzavaProizvodnje())==1;
+        boolean uspeh = jdbcTemplate.update(sql, proizvodjacVakcina.getProizvodjac(), proizvodjacVakcina.getDrzavaProizvodnje(), proizvodjacVakcina.getId())==1;
         return uspeh?1:0;
     }
 

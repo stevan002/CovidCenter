@@ -19,21 +19,6 @@ public class VakcinaServiceIMPL implements VakcinaService {
     }
 
     @Override
-    public Vakcina findOneByNaziv(String nazivProizvodjaca) {
-        return vakcinaDAO.findOneByNaziv(nazivProizvodjaca);
-    }
-
-    @Override
-    public Vakcina findOneByDrzava(String drzavaProizvodnje) {
-        return vakcinaDAO.findOneByDrzava(drzavaProizvodnje);
-    }
-
-    @Override
-    public List<Vakcina> findByKolicina(int min, int max) {
-        return vakcinaDAO.findOneByKolicina(min, max);
-    }
-
-    @Override
     public List<Vakcina> findAll() {
         return vakcinaDAO.findAll();
     }
@@ -41,12 +26,6 @@ public class VakcinaServiceIMPL implements VakcinaService {
     @Override
     public Vakcina save(Vakcina vakcina) {
         vakcinaDAO.save(vakcina);
-        return vakcina;
-    }
-
-    @Override
-    public Vakcina update(Vakcina vakcina) {
-        vakcinaDAO.update(vakcina);
         return vakcina;
     }
 

@@ -37,9 +37,4 @@ public class VestServiceIMPL implements VestService {
         vestDAO.delete(id);
     }
 
-    @Override
-    public Vest update(Vest vest) {
-        vestDAO.update(vest);
-        return vest;
-    }
 }

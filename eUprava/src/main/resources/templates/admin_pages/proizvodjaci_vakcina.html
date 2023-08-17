@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Proizvodjaci vakcina</title>
+    <link rel="stylesheet"  type="text/css"  href="css/StiloviTabela.css"/>
+</head>
+<body>
+<h1>Proizvodjaci vakcina</h1>
+<p th:text="${poruka}"></p>
+<div>
+    <a th:href="@{'/proizvodjacVakcina/create'}">Kreiraj proizvodjaca vakcine</a>
+</div>
+<table style="border: 1px solid">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Naziv</th>
+        <th>Drzava proizvodnje</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="proizvodjac : ${listaProizvodjaca}">
+        <td th:text="${proizvodjac.id}"></td>
+        <td th:text="${proizvodjac.proizvodjac}"></td>
+        <td th:text="${proizvodjac.drzavaProizvodnje}"></td>
+        <td><a th:href="@{'/proizvodjacVakcina/edit/' + ${proizvodjac.id}}" >Izmeni</a></td>
+        <td><a th:href="@{'/proizvodjacVakcina/delete/' + ${proizvodjac.id}}">Izbrisi</a></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

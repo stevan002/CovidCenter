@@ -29,6 +29,7 @@ public class VestController {
     @GetMapping("/vesti/create")
     public String prikazNoveForme(Model model){
         model.addAttribute("vest", new Vest());
+        model.addAttribute("naslov", "Kreiranje vesti");
         return "admin_pages/vesti_edit";
     }
 
@@ -43,6 +44,7 @@ public class VestController {
     public String editVest(@PathVariable("id") Long id, Model model){
         Vest vest = vestService.findOne(id);
         model.addAttribute("vest", vest);
+        model.addAttribute("naslov", "Izmena podataka vesti");
         return "admin_pages/vesti_edit";
     }
 

@@ -8,6 +8,9 @@
 <body>
 <h1>Vesti o Obolelima</h1>
 <p th:text="${poruka}"></p>
+<div>
+    <a th:href="@{'/vestObolelima/create'}">Kreiraj vest o obolelima</a>
+</div>
 <table style="border: 1px solid">
     <thead>
     <tr>
@@ -36,30 +39,5 @@
     </tr>
     </tbody>
 </table>
-<form th:action="@{/vestObolelima/save}" method="post" th:object="${vest}">
-    <input type="hidden" th:field="*{id}">
-
-    <div>
-        <div>
-            <label for="oboleli">Broj obolelih</label>
-            <input type="number" id="oboleli" th:field="*{brObolelih}" required>
-        </div>
-        <div>
-            <label for="testirani">Broj testiranih</label>
-            <input type="number" id="testirani" th:field="*{brTestiranih}">
-        </div>
-        <div>
-            <label for="respirator">Broj na respiratoru</label>
-            <input type="number" id="respirator" th:field="*{brNaRespiratorima}" required>
-        </div>
-        <div>
-            <label for="hospitalizovani">Broj hospitalizovanih</label>
-            <input type="number" id="hospitalizovani" th:field="*{brHospitalizovanih}" required>
-        </div>
-
-        <button type="submit">Submit</button>
-        <button type="button">Cancel</button>
-    </div>
-</form>
 </body>
 </html>

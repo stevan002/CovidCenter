@@ -23,24 +23,17 @@ public class ProizvodjacVakcinaServiceIMPL implements ProizvodjacVakcinaService{
     }
 
     @Override
-    public ProizvodjacVakcina save(ProizvodjacVakcina proizvodjacVakcina) {
-        proizvodjacVakcinaDAO.save(proizvodjacVakcina);
-        return proizvodjacVakcina;
-    }
-
-    @Override
-    public ProizvodjacVakcina update(ProizvodjacVakcina proizvodjacVakcina) {
-        proizvodjacVakcinaDAO.update(proizvodjacVakcina);
-        return proizvodjacVakcina;
-    }
-
-    @Override
-    public ProizvodjacVakcina delete(Long id) {
-        ProizvodjacVakcina proizvodjacVakcina = findOne(id);
-        if(proizvodjacVakcina != null){
-            proizvodjacVakcinaDAO.delete(id);
+    public void save(ProizvodjacVakcina proizvodjacVakcina) {
+        if(proizvodjacVakcinaDAO.findOne(proizvodjacVakcina.getId()) != null){
+            proizvodjacVakcinaDAO.update(proizvodjacVakcina);
+        }else{
+            proizvodjacVakcinaDAO.save(proizvodjacVakcina);
         }
-        return proizvodjacVakcina;
+    }
+
+    @Override
+    public void delete(Long id) {
+        proizvodjacVakcinaDAO.delete(id);
     }
 
 }
