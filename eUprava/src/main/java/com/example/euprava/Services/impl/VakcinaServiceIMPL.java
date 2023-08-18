@@ -24,9 +24,12 @@ public class VakcinaServiceIMPL implements VakcinaService {
     }
 
     @Override
-    public Vakcina save(Vakcina vakcina) {
-        vakcinaDAO.save(vakcina);
-        return vakcina;
+    public void save(Vakcina vakcina) {
+        if(vakcinaDAO.findOne(vakcina.getId()) != null){
+            vakcinaDAO.update(vakcina);
+        }else{
+            vakcinaDAO.save(vakcina);
+        }
     }
 
     @Override

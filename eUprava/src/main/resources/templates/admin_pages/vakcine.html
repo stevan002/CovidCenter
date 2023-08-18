@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vakcine</title>
+    <link rel="stylesheet"  type="text/css"  href="css/StiloviTabela.css"/>
+</head>
+<body>
+<div>
+  <a th:href="@{'/vakcina/create'}">Kreiraj vakcinu</a>
+</div>
+<table style="border: 1px solid">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Naziv</th>
+    <th>Kolicina</th>
+    <th>Proizvodjac vakcine</th>
+    <th>Edit</th>
+    <th>Delete</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="vakcina : ${listaVakcina}">
+    <td th:text="${vakcina.id}"></td>
+    <td th:text="${vakcina.ime}"></td>
+    <td th:text="${vakcina.kolicina}"></td>
+    <td th:text="${vakcina.proizvodjac.proizvodjac}"></td>
+    <td><a th:href="@{'/vakcina/edit/' + ${vakcina.id}}" >Izmeni</a></td>
+    <td><a th:href="@{'/vakcina/delete/' + ${vakcina.id}}">Izbrisi</a></td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>

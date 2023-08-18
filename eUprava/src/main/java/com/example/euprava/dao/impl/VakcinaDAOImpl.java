@@ -50,7 +50,7 @@ public class VakcinaDAOImpl implements VakcinaDAO {
     @Override
     public Vakcina findOne(Long id) {
         String sql = "select vak.id, vak.ime, vak.kolicina, vak.proizvodjacId from vakcina vak, proizvodjacvakcina p " +
-                "where vak.id=? and vak.proizvodjacId = p.id " +
+                "where vak.id=? " +
                 "order by vak.id";
 
         VakcinaRowCallBackHandler rowCallBackHandler = new VakcinaRowCallBackHandler();
@@ -193,7 +193,7 @@ public class VakcinaDAOImpl implements VakcinaDAO {
     @Override
     public int update(Vakcina vakcina) {
         String sql = "update vakcina set ime=?, kolicina=?, proizvodjacId=? where id=?";
-        boolean uspeh = jdbcTemplate.update(sql,vakcina.getIme(), vakcina.getKolicina(), vakcina.getProizvodjac().getId()) == 1;
+        boolean uspeh = jdbcTemplate.update(sql,vakcina.getIme(), vakcina.getKolicina(), vakcina.getProizvodjac().getId(), vakcina.getId()) == 1;
         return uspeh?1:0;
     }
 

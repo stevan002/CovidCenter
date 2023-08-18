@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>[[${naslov}]]</title>
+</head>
+<body>
+<form th:action="@{/vakcina/save}" method="post" th:object="${vakcina}">
+  <input type="hidden" th:field="*{id}">
+
+  <div>
+    <label for="ime">Ime vakcine</label>
+    <input type="text" th:field="*{ime}" id="ime">
+  </div>
+  <div>
+    <label for="kolicina">Kolicina</label>
+    <input type="number" th:field="*{kolicina}" id="kolicina">
+  </div>
+  <div>
+    <label>Proizvodjac vakcine</label>
+    <select th:field="*{proizvodjacId}">
+      <option th:each="proizvodjacVakcina : ${proizvodjaciVakcina}" th:value="${proizvodjacVakcina.getId()}" th:text="${proizvodjacVakcina.getProizvodjac()}">
+      </option>
+    </select>
+  </div>
+
+  <div>
+    <button type="submit">Submit</button>
+    <button type="button" onclick="preusmjeriNaVakcine()">Cancel</button>
+  </div>
+</form>
+</body>
+</html>
+
+<script>
+  function preusmjeriNaVakcine() {
+    window.location.href = "/eUprava/vakcina";
+  }
+</script>

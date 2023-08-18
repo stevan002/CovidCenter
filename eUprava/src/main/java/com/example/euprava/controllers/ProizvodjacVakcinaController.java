@@ -35,7 +35,7 @@ public class ProizvodjacVakcinaController {
     }
 
     @PostMapping("/proizvodjacVakcina/save")
-    public String kreiranjeProizvodjaca(ProizvodjacVakcina proizvodjacVakcina, RedirectAttributes redirectAttributes){
+    public String createProizvodjaca(ProizvodjacVakcina proizvodjacVakcina, RedirectAttributes redirectAttributes){
         proizvodjacVakcinaService.save(proizvodjacVakcina);
         redirectAttributes.addFlashAttribute("poruka", "Proizvodjac vakcina je sacuvan");
         return "redirect:/proizvodjacVakcina";

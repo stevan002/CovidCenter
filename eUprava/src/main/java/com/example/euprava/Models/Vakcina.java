@@ -5,6 +5,7 @@ public class Vakcina {
     private String ime;
     private int kolicina;
     private ProizvodjacVakcina proizvodjac;
+    private Long proizvodjacId;
 
     public Vakcina() {
     }
@@ -46,6 +47,14 @@ public class Vakcina {
 
     public void setProizvodjac(ProizvodjacVakcina proizvodjac) {
         this.proizvodjac = proizvodjac;
+    }
+
+    public Long getProizvodjacId() {
+        return proizvodjacId;
+    }
+
+    public void setProizvodjacId(Long proizvodjacId) {
+        this.proizvodjacId = proizvodjacId;
     }
 
     @Override

@@ -34,7 +34,7 @@ public class VestController {
     }
 
     @PostMapping("/vesti/save")
-    public String sacuvajVest(Vest vest, RedirectAttributes redirectAttributes){
+    public String createVest(Vest vest, RedirectAttributes redirectAttributes){
         vestService.save(vest);
         redirectAttributes.addFlashAttribute("poruka", "Vest je sacuvana");
         return "redirect:/vesti";
