@@ -32,9 +32,12 @@ public class KorisnikServiceIMPL implements KorisnikService {
     }
 
     @Override
-    public Korisnik save(Korisnik korisnik) {
-        korisnikDAO.save(korisnik);
-        return korisnik;
+    public void save(Korisnik korisnik) {
+        if(korisnikDAO.findOne(korisnik.getId()) != null){
+            korisnikDAO.update(korisnik);
+        }else{
+            korisnikDAO.save(korisnik);
+        }
     }
 
 

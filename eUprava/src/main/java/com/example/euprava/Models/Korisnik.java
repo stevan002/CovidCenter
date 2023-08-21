@@ -17,6 +17,8 @@ public class Korisnik {
     private EUloga uloga;
 
     public Korisnik() {
+        this.datumVremeRegistracije = LocalDateTime.now();
+        this.uloga = EUloga.Pacijent;
     }
 
 

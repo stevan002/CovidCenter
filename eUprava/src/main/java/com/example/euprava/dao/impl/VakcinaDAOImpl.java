@@ -49,12 +49,16 @@ public class VakcinaDAOImpl implements VakcinaDAO {
     }
     @Override
     public Vakcina findOne(Long id) {
-        String sql = "select vak.id, vak.ime, vak.kolicina, vak.proizvodjacId from vakcina vak, proizvodjacvakcina p " +
+        String sql = "select vak.id, vak.ime, vak.kolicina, vak.proizvodjacId from vakcina vak " +
                 "where vak.id=? " +
                 "order by vak.id";
 
         VakcinaRowCallBackHandler rowCallBackHandler = new VakcinaRowCallBackHandler();
         jdbcTemplate.query(sql, rowCallBackHandler, id);
+
+        if(rowCallBackHandler.getVakcine().size() == 0){
+            return null;
+        }
 
         return rowCallBackHandler.getVakcine().get(0);
     }
@@ -166,6 +170,10 @@ public class VakcinaDAOImpl implements VakcinaDAO {
                 "order by v.id";
         VakcinaRowCallBackHandler rowCallBackHandler = new VakcinaRowCallBackHandler();
         jdbcTemplate.query(sql, rowCallBackHandler);
+
+        if(rowCallBackHandler.getVakcine().size() == 0){
+            return null;
+        }
 
         return rowCallBackHandler.getVakcine();
     }

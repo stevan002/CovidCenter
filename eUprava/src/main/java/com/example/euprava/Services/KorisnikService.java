@@ -9,7 +9,7 @@ public interface KorisnikService {
     Korisnik findOneByEmail(String email);
     Korisnik findOneByEmailAndPassword(String email, String lozinka);
     List<Korisnik> findAll();
-    Korisnik save(Korisnik korisnik);
+    void save(Korisnik korisnik);
     Korisnik update(Korisnik korisnik);
     Korisnik delete(Long id);
 }

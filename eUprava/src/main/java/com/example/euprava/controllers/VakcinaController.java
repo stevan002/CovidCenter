@@ -45,7 +45,7 @@ public class VakcinaController {
     public String saveVakcina(Vakcina vakcina, RedirectAttributes redirectAttributes){
         vakcina.setProizvodjac(proizvodjacVakcinaService.findOne(vakcina.getProizvodjacId()));
         vakcinaService.save(vakcina);
-        redirectAttributes.addFlashAttribute("poruka", "Vakcina je kreirana");
+        redirectAttributes.addFlashAttribute("poruka", "Vakcina je sacuvana");
         return "redirect:/vakcina";
     }
 

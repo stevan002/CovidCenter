@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>[[${naslov}]]</title>
+</head>
+<body>
+    <form th:action="@{/korisnici/save}" method="post" th:object="${korisnik}">
+        <input type="hidden" th:field="*{id}">
+        <div>
+            <label for="email">Email</label>
+            <input type="email" id="email" th:field="*{email}" required minlength="10"/>
+        </div>
+        <div>
+            <label for="ime">Ime</label>
+            <input type="text" id="ime" th:field="*{ime}" required/>
+        </div>
+        <div>
+            <label for="prezime">Prezime</label>
+            <input type="text" id="prezime" th:field="*{prezime}" required/>
+        </div>
+        <div>
+            <label for="jmbg">JMBG</label>
+            <input type="text" id="jmbg" th:field="*{jmbg}" required minlength="13" maxlength="13"/>
+        </div>
+        <div>
+            <label for="adresa">Adresa</label>
+            <input type="text" id="adresa" th:field="*{adresa}" required/>
+        </div>
+        <div>
+            <label for="brTelefona">Broj telefona</label>
+            <input type="text" id="brTelefona" th:field="*{brTelefona}" required>
+        </div>
+        <div>
+            <label for="datumRodjenja">Datum rodjenja</label>
+            <input id="datumRodjenja" th:field="*{datumRodjenja}" type="date" required>
+        </div>
+
+        <div>
+            <label for="lozinka">Lozinka</label>
+            <input type="password" id="lozinka" th:field="*{lozinka}"/>
+        </div>
+
+        <div>
+            <label for="lozinka2" >Ponovi lozinku</label>
+            <input type="password" id="lozinka2"/>
+            <span id="greska">Passwords do not match</span>
+        </div>
+
+        <button type="submit">Potvrdi</button>
+        <button type="button" onclick="preusmjeriKorisnike()">Otkazi</button>
+    </form>
+</body>
+</html>
+
+<script>
+    function preusmjeriKorisnike() {
+        window.location.href = "/eUprava/korisnici";
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const lozinkaInput = document.getElementById("lozinka");
+        const lozinka2Input = document.getElementById("lozinka2");
+        const greskaSpan = document.getElementById("greska");
+
+        function provjeriPodudaranjeLozinki() {
+            if (lozinkaInput.value !== lozinka2Input.value) {
+                greskaSpan.style.display = "block";
+            } else {
+                greskaSpan.style.display = "none";
+            }
+        }
+
+        lozinkaInput.addEventListener("input", provjeriPodudaranjeLozinki);
+        lozinka2Input.addEventListener("input", provjeriPodudaranjeLozinki);
+    });
+</script>

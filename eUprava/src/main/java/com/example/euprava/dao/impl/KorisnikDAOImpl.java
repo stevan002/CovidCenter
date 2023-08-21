@@ -64,6 +64,10 @@ public class KorisnikDAOImpl implements KorisnikDAO{
         KorisnikRowCallBackHandler rowCallBackHandler = new KorisnikRowCallBackHandler();
         jdbcTemplate.query(sql, rowCallBackHandler, id);
 
+        if(rowCallBackHandler.getKorisnici().size() == 0) {
+            return null;
+        }
+
         return rowCallBackHandler.getKorisnici().get(0);
     }
 
@@ -71,13 +75,17 @@ public class KorisnikDAOImpl implements KorisnikDAO{
     public Korisnik findOneByEmail(String email) {
 
         String sql =
-                "Select kor.id, kor.ime, kor.prezime, kor.email, kor.lozinka, kor.datumRodjenja, kor.jmbg, kor.adresa, kor.brTelefona, kor.datumVremeRegistracije, kor.uloga " +
+                "select kor.id, kor.ime, kor.prezime, kor.email, kor.lozinka, kor.datumRodjenja, kor.jmbg, kor.adresa, kor.brTelefona, kor.datumVremeRegistracije, kor.uloga " +
                         "from korisnici kor " +
                         "where kor.email = ? " +
                         "order by kor.id";
 
         KorisnikRowCallBackHandler rowCallBackHandler = new KorisnikRowCallBackHandler();
         jdbcTemplate.query(sql, rowCallBackHandler, email);
+
+        if(rowCallBackHandler.getKorisnici().size() == 0) {
+            return null;
+        }
 
         return rowCallBackHandler.getKorisnici().get(0);
     }
@@ -146,9 +154,9 @@ public class KorisnikDAOImpl implements KorisnikDAO{
     @Transactional
     @Override
     public int update(Korisnik korisnik) {
-        String sql = "update korisnici set ime=?, prezime=?, email=?, lozinka=?, datumRodjenja=?, jmbg=?, adresa=?, brTelefona=?, datumVremeRegistracije=?, uloga=? " +
+        String sql = "update korisnici set email=?, lozinka=?, ime=?, prezime=?, datumRodjenja=?, jmbg=?, adresa=?, brTelefona=?, datumVremeRegistracije=?, uloga=? " +
                 "where id=?";
-        boolean uspeh = jdbcTemplate.update(sql, korisnik.getIme(), korisnik.getPrezime(), korisnik.getEmail(), korisnik.getLozinka(), korisnik.getDatumRodjenja(), korisnik.getJmbg(), korisnik.getAdresa(), korisnik.getBrTelefona(), korisnik.getDatumVremeRegistracije(), korisnik.getUloga()) == 1;
+        boolean uspeh = jdbcTemplate.update(sql, korisnik.getIme(), korisnik.getPrezime(), korisnik.getEmail(), korisnik.getLozinka(), korisnik.getDatumRodjenja().toString(), korisnik.getJmbg(), korisnik.getAdresa(), korisnik.getBrTelefona(), Timestamp.valueOf(korisnik.getDatumVremeRegistracije()).toString(), korisnik.getUloga().toString(), korisnik.getId()) == 1;
         return uspeh?1:0;
     }
     @Transactional
