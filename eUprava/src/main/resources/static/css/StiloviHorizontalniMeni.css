@@ -15,3 +15,25 @@ table.horizontalni-meni li {
 table.horizontalni-meni td {
 	background-color: DodgerBlue;
 }
+
+ul.navbar {
+	list-style-type: none;
+	background-color: DodgerBlue;
+	overflow: hidden;
+}
+
+ul.navbar li {
+	float: left;
+}
+
+ul.navbar li a {
+	display: block;
+	color: white;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+}
+
+ul.navbar li a:hover {
+	background-color: #555;
+}

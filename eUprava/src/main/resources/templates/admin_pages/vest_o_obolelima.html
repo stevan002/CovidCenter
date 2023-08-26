@@ -6,7 +6,7 @@
     <link rel="stylesheet"  type="text/css"  href="css/StiloviTabela.css"/>
 </head>
 <body>
-<h1>Vesti o Obolelima</h1>
+<div th:replace="~{navbars/admin_navbar :: navbar}">...</div>
 <p th:text="${poruka}"></p>
 <div>
     <a th:href="@{'/vestObolelima/create'}">Kreiraj vest o obolelima</a>

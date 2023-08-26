@@ -87,8 +87,19 @@ create table prijavaZaVakcinu(
     primary key(id)
 );
 
+CREATE FUNCTION get_total_infected(vest_id INT) RETURNS INT
+    READS SQL DATA
+    DETERMINISTIC
+BEGIN
+    DECLARE ukupno_zarazenih INT;
+    SELECT SUM(brojObolelih) INTO ukupno_zarazenih FROM vestoObolelima WHERE datumObjavljivanja <= (select datumObjavljivanja from vestoObolelima
+                                                                                                    where id = vest_id);
+    RETURN ukupno_zarazenih;
+END;
+
+
 insert into korisnici(email, lozinka, ime, prezime, datumRodjenja, jmbg, adresa, brTelefona, datumVremeRegistracije, uloga)
- values("stevan@gmail.com","lozinka", "Stevan", "Stankovic", "2002-09-23", "1234567891234", "Safarikova 31", "061123123", now(), "Pacijent");
+ values("stevan@gmail.com","lozinka", "Stevan", "Stankovic", "2002-09-23", "1234567891234", "Safarikova 31", "061123123", now(), "Administrator");
 insert into korisnici(email, lozinka, ime, prezime, datumRodjenja, jmbg, adresa, brTelefona, datumVremeRegistracije, uloga)
  values("milica@gmail.com","lozinka", "Milica", "Milic", "2002-09-23", "1234567891234", "Hajduk Stanka 31", "061123123", now(), "Medicinsko_osoblje");
 insert into korisnici(email, lozinka, ime, prezime, datumRodjenja, jmbg, adresa, brTelefona, datumVremeRegistracije, uloga)
@@ -111,14 +122,6 @@ insert into nabavkaVakcine(kolicinaVakcina, razlogNabavke, datumKreiranjaZahteva
 insert into prijavaZaVakcinu(datumVremePrijave, pacijentId, vakcinaId) values (now(), 1, 1);
 insert into prijavaZaVakcinu(datumVremePrijave, pacijentId, vakcinaId) values (now(), 3, 2);
 
-CREATE FUNCTION get_total_infected(vest_id INT) RETURNS INT
-    READS SQL DATA
-    DETERMINISTIC
-BEGIN
-    DECLARE ukupno_zarazenih INT;
-    SELECT SUM(brojObolelih) INTO ukupno_zarazenih FROM vestoObolelima WHERE datumObjavljivanja <= (select datumObjavljivanja from vestoObolelima
-                                                                                    where id = vest_id);
-    RETURN ukupno_zarazenih;
-END;
+
 
 

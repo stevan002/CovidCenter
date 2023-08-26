@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+  <link rel="stylesheet"  type="text/css"  href="css/StiloviForma.css"/>
+</head>
+<body>
+<div th:replace="~{navbars/no_login_navbar :: navbar}">...</div>
+<div class="login-container">
+  <h2>Prijava</h2>
+  <form th:action="@{/login/save}" method="post">
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input type="text" id="email" name="email" required>
+    </div>
+    <div class="form-group">
+      <label for="password">Lozinka:</label>
+      <input type="password" id="password" name="password" required>
+    </div>
+    <input type="submit" value="Prijavi se">
+  </form>
+  <p>Nemate nalog? <a th:href="@{/korisnici/create}">Registruj se</a></p>
+</div>
+</body>
+</html>

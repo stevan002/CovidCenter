@@ -1,11 +1,14 @@
 package com.example.euprava.Services.impl;
 
+import com.example.euprava.Models.Vest;
 import com.example.euprava.Models.VestObolelima;
 import com.example.euprava.Services.VestObolelimaService;
 import com.example.euprava.dao.VestObolelimaDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 @Service
 public class VestObolelimaServiceIMPL implements VestObolelimaService {
@@ -20,6 +23,11 @@ public class VestObolelimaServiceIMPL implements VestObolelimaService {
     @Override
     public List<VestObolelima> findAll() {
         return vestObolelimaDAO.findAll();
+    }
+
+    @Override
+    public VestObolelima findLastInserted() {
+        return vestObolelimaDAO.findLastInserted();
     }
 
     @Override

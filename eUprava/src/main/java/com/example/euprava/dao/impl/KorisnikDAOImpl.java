@@ -30,10 +30,10 @@ public class KorisnikDAOImpl implements KorisnikDAO{
         public void processRow(ResultSet rs) throws SQLException {
             int index = 1;
             Long id = rs.getLong(index++);
-            String email = rs.getString(index++);
-            String lozinka = rs.getString(index++);
             String ime = rs.getString(index++);
             String prezime = rs.getString(index++);
+            String email = rs.getString(index++);
+            String lozinka = rs.getString(index++);
             Date datumRodjenja = rs.getDate(index++);
             String jmbg = rs.getString(index++);
             String adresa = rs.getString(index++);

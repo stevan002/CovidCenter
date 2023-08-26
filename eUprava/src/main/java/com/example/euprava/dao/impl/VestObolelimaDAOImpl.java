@@ -62,6 +62,25 @@ public class VestObolelimaDAOImpl implements VestObolelimaDAO {
     }
 
     @Override
+    public VestObolelima findLastInserted() {
+        String sql = "select v.id, v.brojObolelih, v.brojTestiranih, get_total_infected(v.id), v.brojHospitalizovanih" +
+                ", v.brojNaRespiratorima, v.datumObjavljivanja " +
+                "from vestoObolelima v " +
+                "order by v.datumObjavljivanja desc " +
+                "limit 1";
+
+        VestObolelimaRowCallBackHandler rowCallBackHandler = new VestObolelimaRowCallBackHandler();
+        jdbcTemplate.query(sql, rowCallBackHandler);
+
+        List<VestObolelima> vesti = rowCallBackHandler.getVesti();
+        if (!vesti.isEmpty()) {
+            return vesti.get(0);
+        } else {
+            return null;
+        }
+    }
+
+    @Override
     public List<VestObolelima> findAll() {
         String sql = "select v.id, v.brojObolelih, v.brojTestiranih, get_total_infected(v.id), v.brojHospitalizovanih" +
                 ", v.brojNaRespiratorima, v.datumObjavljivanja " +

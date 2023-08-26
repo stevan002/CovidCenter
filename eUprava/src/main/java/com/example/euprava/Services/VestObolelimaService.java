@@ -7,6 +7,7 @@ import java.util.List;
 public interface VestObolelimaService {
     VestObolelima getOne(Long id);
     List<VestObolelima> findAll();
+    VestObolelima findLastInserted();
     void save(VestObolelima vestObolelima);
     void delete(Long id);
 }

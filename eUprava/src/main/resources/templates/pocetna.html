@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>EUprava</title>
+    <link rel="stylesheet"  type="text/css"  href="css/StiloviTabela.css"/>
+</head>
+<body>
+<h1>Presek stanja o obolelima u poslednja 24h</h1>
+<table style="border: 1px solid">
+    <tr>
+        <th>ID</th>
+        <th>Broj Obolelih</th>
+        <th>Broj Testiranih</th>
+        <th>Broj Pacijenata Na Respiratoru</th>
+        <th>Broj Hospitalizovanih</th>
+        <th>Broj Ukupno Obolelih</th>
+        <th>Datum i vreme objavljivanja izvestaja</th>
+    </tr>
+    <tr th:if="${vestDanas}">
+        <td th:text="${vestDanas.id}"></td>
+        <td th:text="${vestDanas.brObolelih}"></td>
+        <td th:text="${vestDanas.brTestiranih}"></td>
+        <td th:text="${vestDanas.brNaRespiratorima}"></td>
+        <td th:text="${vestDanas.brHospitalizovanih}"></td>
+        <td th:text="${vestDanas.brUkupnoObolelih}"></td>
+        <td th:text="${vestDanas.datumVremeObjavljivanja}"></td>
+    </tr>
+    <tr th:unless="${vestDanas}">
+        <td colspan="6">Nema dostupnih vesti</td>
+    </tr>
+</table>
+<h3>Vesti</h3>
+<table style="border: 1px solid">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Naslov</th>
+        <th>Sadrzaj</th>
+        <th>Datum i vreme objavljivanja izvestaja</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="vest : ${listaVesti}">
+        <td th:text="${vest.id}"></td>
+        <td th:text="${vest.naziv}"></td>
+        <td th:text="${vest.sadrzaj}"></td>
+        <td th:text="${vest.datumVremeObjavljivanja}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
