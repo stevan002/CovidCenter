@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Vakcine</title>
+    <link rel="stylesheet"  type="text/css"  href="css/StiloviTabela.css"/>
+</head>
+<body>
+<table style="border: 1px solid">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Naziv</th>
+        <th>Kolicina</th>
+        <th>Proizvodjac vakcine</th>
+        <th>Drzava proizvodnje</th>
+        <th>Prijava</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="vakcina : ${listaVakcina}">
+        <td th:text="${vakcina.id}"></td>
+        <td th:text="${vakcina.ime}"></td>
+        <td th:text="${vakcina.kolicina}"></td>
+        <td th:text="${vakcina.proizvodjac.proizvodjac}"></td>
+        <td th:text="${vakcina.proizvodjac.drzavaProizvodnje}"></td>
+        <td><a>Prijavi se</a></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

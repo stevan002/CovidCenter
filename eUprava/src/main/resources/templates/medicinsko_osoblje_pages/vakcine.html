@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vakcine</title>
+</head>
+<body>
+<form th:action="@{/medicinskoOsoblje/vakcine}" method="get">
+    <div class="input-group">
+        <input type="text" name="pretraga" placeholder="Pretraga"style="margin-right: 10px;"/>
+        <div>
+            <button type="submit"style="margin-left: 10px;">
+                pretraga
+            </button>
+        </div>
+    </div>
+
+    <div class="input-group mt-3">
+
+    </div>
+</form>
+<table style="border: 1px solid">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Naziv</th>
+        <th>Kolicina</th>
+        <th>Proizvodjac vakcine</th>
+        <th>Drzava proizvodnje</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="vakcina : ${listaVakcina}">
+        <td th:text="${vakcina.id}"></td>
+        <td th:text="${vakcina.ime}"></td>
+        <td th:text="${vakcina.kolicina}"></td>
+        <td th:text="${vakcina.proizvodjac.proizvodjac}"></td>
+        <td th:text="${vakcina.proizvodjac.drzavaProizvodnje}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

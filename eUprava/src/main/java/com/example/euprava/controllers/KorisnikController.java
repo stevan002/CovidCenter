@@ -41,6 +41,14 @@ public class KorisnikController {
         return "admin_pages/korisnik_edit";
     }
 
+    @GetMapping("/korisnici/registration")
+    public String registracija(Model model){
+        model.addAttribute("naslov", "Registracija");
+        model.addAttribute("korisnik", new Korisnik());
+
+        return "admin_pages/korisnik_edit";
+    }
+
     @PostMapping("/korisnici/save")
     public String sacuvajKorisnika(Korisnik korisnik, RedirectAttributes redirectAttributes){
         korisnikService.save(korisnik);

@@ -1,8 +1,10 @@
 package com.example.euprava.Services.impl;
 
+import com.example.euprava.Models.EUloga;
 import com.example.euprava.Models.Korisnik;
 import com.example.euprava.Services.KorisnikService;
 import com.example.euprava.dao.KorisnikDAO;
+import jakarta.servlet.http.Cookie;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -55,6 +57,24 @@ public class KorisnikServiceIMPL implements KorisnikService {
             korisnikDAO.delete(id);
         }
         return korisnik;
+    }
+
+    @Override
+    public boolean checkCookies(Cookie[] cookies, EUloga uloga) {
+        if(cookies != null){
+            for(Cookie cookie : cookies){
+                if(cookie.getValue().contains("@")){
+                    Korisnik temp = this.findOneByEmail(cookie.getValue());
+                    return temp.getUloga().equals(uloga);
+                }
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public Korisnik checkCookieUser(Cookie[] cookies) {
+        return null;
     }
 
 }

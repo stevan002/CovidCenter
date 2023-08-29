@@ -1,10 +1,13 @@
 package com.example.euprava.controllers;
 
+import com.example.euprava.Models.EUloga;
 import com.example.euprava.Models.Vest;
 import com.example.euprava.Models.VestObolelima;
 import com.example.euprava.Services.KorisnikService;
 import com.example.euprava.Services.VestObolelimaService;
 import com.example.euprava.Services.VestService;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,12 +26,25 @@ public class PocetnaController {
     private KorisnikService korisnikService;
 
     @GetMapping("/")
-    public String pocetna(Model model){
+    public String pocetna(Model model, HttpServletRequest request){
         List<Vest> list = vestService.findAll();
         model.addAttribute("listaVesti", list);
 
         VestObolelima vestObolelimaToday = vestObolelimaService.findLastInserted();
         model.addAttribute("vestDanas", vestObolelimaToday);
+
+        Cookie[] cookies = request.getCookies();
+        if(korisnikService.checkCookies(cookies, EUloga.Administrator)){
+            model.addAttribute("role", "admin");
+        }
+        else if(korisnikService.checkCookies(cookies, EUloga.Medicinsko_osoblje)){
+            model.addAttribute("role", "osoblje");
+        }
+        else if(korisnikService.checkCookies(cookies, EUloga.Pacijent)){
+            model.addAttribute("role", "pacijent");
+        } else{
+            model.addAttribute("role", "none");
+        }
 
         return "pocetna";
     }
