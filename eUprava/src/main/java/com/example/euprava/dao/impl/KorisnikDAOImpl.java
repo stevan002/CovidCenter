@@ -30,10 +30,10 @@ public class KorisnikDAOImpl implements KorisnikDAO{
         public void processRow(ResultSet rs) throws SQLException {
             int index = 1;
             Long id = rs.getLong(index++);
-            String ime = rs.getString(index++);
-            String prezime = rs.getString(index++);
             String email = rs.getString(index++);
             String lozinka = rs.getString(index++);
+            String ime = rs.getString(index++);
+            String prezime = rs.getString(index++);
             Date datumRodjenja = rs.getDate(index++);
             String jmbg = rs.getString(index++);
             String adresa = rs.getString(index++);
@@ -44,7 +44,7 @@ public class KorisnikDAOImpl implements KorisnikDAO{
 
             Korisnik korisnik = korisnici.get(id);
             if(korisnik == null){
-                korisnik = new Korisnik(id, email, lozinka, ime, prezime, datumRodjenja, jmbg, adresa, brTelefona, datumVremeRegistracije, uloga);
+                korisnik = new Korisnik(id, ime, prezime, email, lozinka, datumRodjenja, jmbg, adresa, brTelefona, datumVremeRegistracije, uloga);
                 korisnici.put(korisnik.getId(), korisnik);
             }
         }
@@ -125,7 +125,7 @@ public class KorisnikDAOImpl implements KorisnikDAO{
         PreparedStatementCreator preparedStatementCreator = new PreparedStatementCreator() {
             @Override
             public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
-                String sql ="insert into korisnici (ime, prezime, email, lozinka, datumRodjenja, jmbg, adresa, brTelefona, datumVremeRegistracije, uloga) " +
+                String sql ="insert into korisnici (email, lozinka, ime, prezime, datumRodjenja, jmbg, adresa, brTelefona, datumVremeRegistracije, uloga) " +
                         "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
                 PreparedStatement preparedStatement= con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -154,7 +154,7 @@ public class KorisnikDAOImpl implements KorisnikDAO{
     @Transactional
     @Override
     public int update(Korisnik korisnik) {
-        String sql = "update korisnici set email=?, lozinka=?, ime=?, prezime=?, datumRodjenja=?, jmbg=?, adresa=?, brTelefona=?, datumVremeRegistracije=?, uloga=? " +
+        String sql = "update korisnici set  ime=?, prezime=?,email=?, lozinka=?, datumRodjenja=?, jmbg=?, adresa=?, brTelefona=?, datumVremeRegistracije=?, uloga=? " +
                 "where id=?";
         boolean uspeh = jdbcTemplate.update(sql, korisnik.getIme(), korisnik.getPrezime(), korisnik.getEmail(), korisnik.getLozinka(), korisnik.getDatumRodjenja().toString(), korisnik.getJmbg(), korisnik.getAdresa(), korisnik.getBrTelefona(), Timestamp.valueOf(korisnik.getDatumVremeRegistracije()).toString(), korisnik.getUloga().toString(), korisnik.getId()) == 1;
         return uspeh?1:0;

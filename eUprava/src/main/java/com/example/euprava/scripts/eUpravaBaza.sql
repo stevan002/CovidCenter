@@ -55,7 +55,7 @@ create table vestoObolelima(
 create table kartonPacijenta(
 	id bigint auto_increment,
     doza int not null,
-    datumVremeDobijanjaDoze datetime not null,
+    datumVremeDobijanjaDoze datetime,
     pacijentId bigint not null,
     FOREIGN KEY(pacijentId) REFERENCES korisnici(id)
 		ON DELETE CASCADE,

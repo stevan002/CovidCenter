@@ -35,15 +35,15 @@ public class PocetnaController {
 
         Cookie[] cookies = request.getCookies();
         if(korisnikService.checkCookies(cookies, EUloga.Administrator)){
-            model.addAttribute("role", "admin");
+            model.addAttribute("uloga", "admin");
         }
         else if(korisnikService.checkCookies(cookies, EUloga.Medicinsko_osoblje)){
-            model.addAttribute("role", "osoblje");
+            model.addAttribute("uloga", "osoblje");
         }
         else if(korisnikService.checkCookies(cookies, EUloga.Pacijent)){
-            model.addAttribute("role", "pacijent");
+            model.addAttribute("uloga", "pacijent");
         } else{
-            model.addAttribute("role", "none");
+            model.addAttribute("uloga", "none");
         }
 
         return "pocetna";

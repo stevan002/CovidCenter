@@ -74,6 +74,13 @@ public class KorisnikServiceIMPL implements KorisnikService {
 
     @Override
     public Korisnik checkCookieUser(Cookie[] cookies) {
+        if(cookies != null){
+            for(Cookie cookie: cookies){
+                if(cookie.getValue().contains("@")){
+                    return this.findOneByEmail(cookie.getValue());
+                }
+            }
+        }
         return null;
     }
 

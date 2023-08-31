@@ -9,11 +9,11 @@ public class Pacijent {
     private LocalDateTime vremePrimanjaDoze;
     private Korisnik korisnik;
 
-    public Pacijent(Korisnik korisnik1) {
+    public Pacijent(Korisnik noviKorisnik) {
         doze = 0;
         vremePrimanjaDoze = null;
-        this.korisnik = korisnik1;
-        this.korisnikId = korisnik1.getId();
+        this.korisnik = noviKorisnik;
+        this.korisnikId = noviKorisnik.getId();
     }
 
     public Pacijent(Long korisnikId, Integer doze, LocalDateTime vremePrimanjaDoze, Korisnik korisnik) {

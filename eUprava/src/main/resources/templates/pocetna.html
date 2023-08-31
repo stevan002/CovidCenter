@@ -6,10 +6,10 @@
     <link rel="stylesheet"  type="text/css"  href="css/StiloviTabela.css"/>
 </head>
 <body>
-<div th:if="${role == 'admin'}" th:insert="~{navbars/admin_navbar :: navbar}"></div>
-<div th:if="${role == 'pacijent'}" th:insert="~{navbars/admin_navbar :: navbar}"></div>
-<div th:if="${role == 'osoblje'}" th:insert="~{navbars/admin_navbar :: navbar}"></div>
-<div th:if="${role == 'none'}" th:insert="~{navbars/no_login_navbar :: navbar}"></div>
+<div th:if="${uloga == 'admin'}" th:insert="~{navbars/admin_navbar :: navbar}"></div>
+<div th:if="${uloga == 'pacijent'}" th:insert="~{navbars/pacijent_navbar :: navbar}"></div>
+<div th:if="${uloga == 'osoblje'}" th:insert="~{navbars/admin_navbar :: navbar}"></div>
+<div th:if="${uloga == 'none'}" th:insert="~{navbars/no_login_navbar :: navbar}"></div>
 <p>[[${greska}]]</p>
 <h1>Presek stanja o obolelima u poslednja 24h</h1>
 <table style="border: 1px solid">

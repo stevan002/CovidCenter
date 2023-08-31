@@ -5,7 +5,7 @@
     <title>[[${naslov}]]</title>
 </head>
 <body>
-    <form th:action="@{/korisnici/save}" method="post" th:object="${korisnik}">
+    <form th:action="@{${url}}" method="post" th:object="${korisnik}">
         <input type="hidden" th:field="*{id}">
         <div>
             <label for="email">Email</label>
@@ -48,7 +48,7 @@
         </div>
 
         <button type="submit">Potvrdi</button>
-        <button type="button" onclick="preusmjeriKorisnike()">Otkazi</button>
+        <a type="button" th:href="${redirect}">Otkazi</a>
     </form>
 </body>
 </html>
