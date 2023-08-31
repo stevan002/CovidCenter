@@ -1,7 +1,12 @@
 package com.example.euprava.controllers;
 
+import com.example.euprava.Models.EUloga;
+import com.example.euprava.Models.Korisnik;
 import com.example.euprava.Models.ProizvodjacVakcina;
+import com.example.euprava.Services.KorisnikService;
 import com.example.euprava.Services.ProizvodjacVakcinaService;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,14 +22,21 @@ public class ProizvodjacVakcinaController {
 
     @Autowired
     private ProizvodjacVakcinaService proizvodjacVakcinaService;
+    @Autowired
+    private KorisnikService korisnikService;
 
 
     @GetMapping("/proizvodjacVakcina")
-    public String prikazProizvodjacaVakcina(Model model){
+    public String prikazProizvodjacaVakcina(Model model, HttpServletRequest request){
         List<ProizvodjacVakcina> lista = proizvodjacVakcinaService.findAll();
         model.addAttribute("listaProizvodjaca", lista);
 
-        return "admin_pages/proizvodjaci_vakcina";
+        Cookie[] cookies = request.getCookies();
+        if(korisnikService.checkCookies(cookies, EUloga.Administrator)){
+            return "admin_pages/proizvodjaci_vakcina";
+        }
+
+        return "greska";
     }
 
     @GetMapping("/proizvodjacVakcina/create")

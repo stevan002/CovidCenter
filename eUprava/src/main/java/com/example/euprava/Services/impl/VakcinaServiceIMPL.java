@@ -29,6 +29,16 @@ public class VakcinaServiceIMPL implements VakcinaService {
     }
 
     @Override
+    public List<Vakcina> searchKolicina(Integer min, Integer max) {
+        return vakcinaDAO.pretragaPoUnetojKolicini(min, max);
+    }
+
+    @Override
+    public List<Vakcina> sortiranje(String sort, String direction) {
+        return vakcinaDAO.sortiranje(sort, direction);
+    }
+
+    @Override
     public void save(Vakcina vakcina) {
         if(vakcinaDAO.findOne(vakcina.getId()) != null){
             vakcinaDAO.update(vakcina);

@@ -59,7 +59,7 @@ public class VestDAOImpl implements VestDAO {
     @Override
     public List<Vest> findAll() {
         String sql = "select v.id, v.naziv, v.sadrzaj, v.datumVremeObjavljivanje from vest v " +
-                "order by v.id";
+                "order by v.id desc";
         VestRowCallBackHandler rowCallBackHandler = new VestRowCallBackHandler();
         jdbcTemplate.query(sql, rowCallBackHandler);
         if(rowCallBackHandler.getVesti().size() == 0){

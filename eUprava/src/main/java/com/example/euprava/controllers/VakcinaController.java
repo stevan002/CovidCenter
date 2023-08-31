@@ -1,9 +1,13 @@
 package com.example.euprava.controllers;
 
+import com.example.euprava.Models.EUloga;
 import com.example.euprava.Models.ProizvodjacVakcina;
 import com.example.euprava.Models.Vakcina;
+import com.example.euprava.Services.KorisnikService;
 import com.example.euprava.Services.ProizvodjacVakcinaService;
 import com.example.euprava.Services.VakcinaService;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,12 +27,20 @@ public class VakcinaController {
     @Autowired
     private ProizvodjacVakcinaService proizvodjacVakcinaService;
 
+    @Autowired
+    private KorisnikService korisnikService;
+
     @GetMapping("/vakcina")
-    public String prikazVakcina(Model model){
+    public String prikazVakcina(Model model, HttpServletRequest request){
         List<Vakcina> lista = vakcinaService.findAll();
         model.addAttribute("listaVakcina", lista);
 
-        return "admin_pages/vakcine";
+        Cookie[] cookies = request.getCookies();
+        if(korisnikService.checkCookies(cookies, EUloga.Administrator)){
+            return "admin_pages/vakcine";
+        }
+
+        return "greska";
     }
 
     @GetMapping("/vakcina/create")

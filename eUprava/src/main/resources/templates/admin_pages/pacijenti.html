@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Kartoni pacijenata</title>
+    <link rel="stylesheet"  type="text/css"  href="css/StiloviTabela.css"/>
+</head>
+<body>
+<div th:replace="~{navbars/admin_navbar :: navbar}">...</div>
+<p th:text="${poruka}"></p>
+
+<table style="border: 1px solid">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Ime</th>
+        <th>Prezime</th>
+        <th>Email</th>
+        <th>Broj primljenih doza</th>
+        <th>Poslednja doza vreme</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="karton : ${listaPacijenta}">
+        <td th:text="${karton.korisnikId}"></td>
+        <td th:text="${karton.korisnik.ime}"></td>
+        <td th:text="${karton.korisnik.prezime}"></td>
+        <td th:text="${karton.korisnik.email}"></td>
+        <td th:text="${karton.doze}"></td>
+        <td th:if="${karton.vremePrimanjaDoze == null}">Nije vakcinisan</td>
+        <td th:unless="${karton.vremePrimanjaDoze == null}" th:text="${karton.vremePrimanjaDoze}"></td>
+        <td><a th:href="@{'/pacijenti/edit/' + ${karton.korisnikId}}" >Izmeni</a></td>
+        <td><a th:href="@{'/pacijenti/delete/' + ${karton.korisnikId}}">Izbrisi</a></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

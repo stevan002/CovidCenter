@@ -76,6 +76,36 @@ public class VakcinaDAOImpl implements VakcinaDAO {
     }
 
     @Override
+    public List<Vakcina> pretragaPoUnetojKolicini(Integer min, Integer max) {
+        String sql =
+                "SELECT v.id, v.ime, v.kolicina, v.proizvodjacId " +
+                        "FROM vakcina v " +
+                        "JOIN proizvodjacvakcina m ON v.proizvodjacId = m.id " +
+                        "WHERE v.kolicina between ? and ? " +
+                        "ORDER BY v.id";
+
+        VakcinaRowCallBackHandler rowCallbackHandler = new VakcinaRowCallBackHandler();
+        jdbcTemplate.query(sql, rowCallbackHandler, min, max);
+
+        return rowCallbackHandler.getVakcine();
+    }
+
+    @Override
+    public List<Vakcina> sortiranje(String sort, String direction) {
+        String sql = "SELECT v.id, v.ime, v.kolicina, v.proizvodjacId " +
+                "FROM vakcina v " +
+                "ORDER BY " + sort + " " + direction;
+
+        VakcinaRowCallBackHandler rowCallbackHandler = new VakcinaRowCallBackHandler();
+        jdbcTemplate.query(sql, rowCallbackHandler);
+
+        if (rowCallbackHandler.getVakcine().isEmpty()) {
+            return null;
+        }
+        return rowCallbackHandler.getVakcine();
+    }
+
+    @Override
     public List<Vakcina> findAll() {
         String sql = "select v.id, v.ime, v.kolicina, v.proizvodjacId from vakcina v " +
                 "order by v.id";

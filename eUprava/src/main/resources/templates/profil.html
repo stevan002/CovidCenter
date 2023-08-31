@@ -8,7 +8,7 @@
 <body>
 <div th:if="${uloga == 'admin'}" th:insert="~{navbars/admin_navbar :: navbar}"></div>
 <div th:if="${uloga == 'pacijent'}" th:insert="~{navbars/pacijent_navbar :: navbar}"></div>
-<div th:if="${uloga == 'osoblje'}" th:insert="~{navbars/admin_navbar :: navbar}"></div>
+<div th:if="${uloga == 'osoblje'}" th:insert="~{navbars/medicinsko_osoblje_navbar :: navbar}"></div>
 <h1>Korisnikov Profil</h1>
 <p>ID: <span th:text="${korisnik.id}"></span></p>
 <p>Email: <span th:text="${korisnik.email}"></span></p>
@@ -17,7 +17,7 @@
 <p>JMBG: <span th:text="${korisnik.jmbg}"></span></p>
 <p>Adresa: <span th:text="${korisnik.adresa}"></span></p>
 <p>Broj telefona: <span th:text="${korisnik.brTelefona}"></span></p>
-<p>Uloga: <span th:text="${korisnik.uloga}"></span></p>
+<p>Uloga: <strong><span th:text="${korisnik.uloga}"></span></strong></p>
 <p>Datum rodjenja: <span th:text="${korisnik.datumRodjenja}"></span></p>
 <p>Vreme registracije: <span th:text="${korisnik.datumVremeRegistracije}"></span></p>
 <a th:href="@{'/korisnici/edit/' + ${korisnik.id}}">Izmena podataka</a>

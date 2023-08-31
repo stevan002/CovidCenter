@@ -28,20 +28,25 @@ public class KorisnikController {
     private PacijentService pacijentService;
 
     @GetMapping("/korisnici")
-    public String prikazListeKorisnika(Model model) throws HttpClientErrorException.NotFound {
+    public String prikazListeKorisnika(Model model, HttpServletRequest request) throws HttpClientErrorException.NotFound {
         List<Korisnik> lista = korisnikService.findAll();
         model.addAttribute("lista", lista);
 
-        return "admin_pages/korisnici";
+        Cookie[] cookies = request.getCookies();
+        if(korisnikService.checkCookies(cookies, EUloga.Administrator)){
+            return "admin_pages/korisnici";
+        }
+
+        return "greska";
     }
 
     @GetMapping("/korisnici/{src}")
     public String prikazForme(Model model, @PathVariable("src") String src){
         if(src.equals("create")){
-            model.addAttribute("naslov", "Dodavanje novog korisnika");
+            model.addAttribute("navbar", "Dodavanje novog korisnika");
             model.addAttribute("redirect", "/eUprava/korisnici");
         }else if(src.equals("registracija")){
-            model.addAttribute("naslov", "Registracija korisnika");
+            model.addAttribute("navbar", "Registracija");
             model.addAttribute("redirect", "/eUprava/login");
         }
         model.addAttribute("korisnik", new Korisnik());
@@ -64,7 +69,7 @@ public class KorisnikController {
         }
 
         redirectAttributes.addFlashAttribute("poruka", "Korisnik je sacuvan");
-        return "redirect:/korisnici";
+        return "redirect:/";
     }
 
     @PostMapping("/korisnici/update")

@@ -1,7 +1,11 @@
 package com.example.euprava.controllers;
 
+import com.example.euprava.Models.EUloga;
 import com.example.euprava.Models.VestObolelima;
+import com.example.euprava.Services.KorisnikService;
 import com.example.euprava.Services.VestObolelimaService;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,13 +21,20 @@ public class VestObolelimaController {
 
     @Autowired
     private VestObolelimaService vestObolelimaService;
+    @Autowired
+    private KorisnikService korisnikService;
 
     @GetMapping("/vestObolelima")
-    public String prikazVesti(Model model){
+    public String prikazVesti(Model model, HttpServletRequest request){
         List<VestObolelima> lista = vestObolelimaService.findAll();
         model.addAttribute("vest", new VestObolelima());
         model.addAttribute("listVest", lista);
-        return "admin_pages/vest_o_obolelima";
+        Cookie[] cookies = request.getCookies();
+        if(korisnikService.checkCookies(cookies, EUloga.Administrator)){
+            return "admin_pages/vest_o_obolelima";
+        }
+
+        return "greska";
     }
 
     @GetMapping("/vestObolelima/create")

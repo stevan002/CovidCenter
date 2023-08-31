@@ -8,7 +8,7 @@
 <body>
 <div th:if="${uloga == 'admin'}" th:insert="~{navbars/admin_navbar :: navbar}"></div>
 <div th:if="${uloga == 'pacijent'}" th:insert="~{navbars/pacijent_navbar :: navbar}"></div>
-<div th:if="${uloga == 'osoblje'}" th:insert="~{navbars/admin_navbar :: navbar}"></div>
+<div th:if="${uloga == 'osoblje'}" th:insert="~{navbars/medicinsko_osoblje_navbar :: navbar}"></div>
 <div th:if="${uloga == 'none'}" th:insert="~{navbars/no_login_navbar :: navbar}"></div>
 <p>[[${greska}]]</p>
 <h1>Presek stanja o obolelima u poslednja 24h</h1>
