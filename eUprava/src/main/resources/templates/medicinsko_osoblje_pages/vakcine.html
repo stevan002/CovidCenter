@@ -32,7 +32,7 @@
     <tbody>
     <tr th:each="vakcina : ${listaVakcina}">
         <td th:text="${vakcina.id}"></td>
-        <td th:text="${vakcina.ime}"></td>
+        <td><a th:href="@{'/vakcina/' + ${vakcina.id}}" th:text="${vakcina.ime}"></a></td>
         <td th:text="${vakcina.kolicina}"></td>
         <td th:text="${vakcina.proizvodjac.proizvodjac}"></td>
         <td th:text="${vakcina.proizvodjac.drzavaProizvodnje}"></td>

@@ -10,6 +10,6 @@ public interface PrijavaDAO {
     Prijava findOne(Long id);
     int save(Prijava prijava);
     int update(Prijava prijava);
-    void deleteByPacijent(Long pacijentId, Long id);
+    void deleteByPacijent(Long pacijentId);
     int delete(Long id);
 }

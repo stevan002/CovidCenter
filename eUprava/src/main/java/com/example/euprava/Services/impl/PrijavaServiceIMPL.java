@@ -46,8 +46,8 @@ public class PrijavaServiceIMPL implements PrijavaService {
     }
 
     @Override
-    public void deleteByPacijent(Long pacijentId, Long id) {
-        prijavaDAO.deleteByPacijent(pacijentId, id);
+    public void deleteByPacijent(Long pacijentId) {
+        prijavaDAO.deleteByPacijent(pacijentId);
     }
 
     @Override

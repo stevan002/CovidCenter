@@ -95,7 +95,7 @@ public class PrijavaController {
                     pacijent.setVremePrimanjaDoze(LocalDateTime.now());
                     pacijent.setDoze(pacijent.getDoze() + 1);
 
-                    prijavaService.delete(prijava.getId());
+                    prijavaService.deleteByPacijent(pacijent.getKorisnikId());
                     vakcinaService.save(vakcina);
                     pacijentService.update(pacijent);
 

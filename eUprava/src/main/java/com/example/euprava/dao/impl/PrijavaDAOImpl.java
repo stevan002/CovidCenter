@@ -133,9 +133,9 @@ public class PrijavaDAOImpl implements PrijavaDAO {
     }
 
     @Override
-    public void deleteByPacijent(Long pacijentId, Long id) {
-        String sql = "delete from prijavaZaVakcinu where pacijentId = ? and id <> ?";
-        jdbcTemplate.update(sql, pacijentId, id);
+    public void deleteByPacijent(Long pacijentId) {
+        String sql = "delete from prijavaZaVakcinu where pacijentId = ?";
+        jdbcTemplate.update(sql, pacijentId);
     }
 
     @Override

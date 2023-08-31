@@ -79,4 +79,11 @@ public class VakcinaController {
 
         return "redirect:/vakcina";
     }
+
+    @GetMapping("/vakcina/{id}")
+    public String vakcina(@PathVariable("id")Long id, Model model){
+        Vakcina vakcina = vakcinaService.findOne(id);
+        model.addAttribute("vakcina", vakcina);
+        return "medicinsko_osoblje_pages/vakcina";
+    }
 }

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:replace="~{navbars/medicinsko_osoblje_navbar :: navbar}">...</div>
+<table style="border: 1px solid">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Naziv</th>
+    <th>Kolicina</th>
+    <th>Naziv proizvodjaca</th>
+    <th>Drzava proizvodnje</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:if="vakcina">
+    <td th:text="${vakcina.id}"></td>
+    <td th:text="${vakcina.ime}"></td>
+    <td th:text="${vakcina.kolicina}"></td>
+    <td th:text="${vakcina.proizvodjac.proizvodjac}"></td>
+    <td th:text="${vakcina.proizvodjac.drzavaProizvodnje}"></td>
+    </td>
+  </tr>
+  </tbody>
+</table>
+<a href="/eUprava">Nazad</a>
+</body>
+</html>

@@ -13,6 +13,6 @@ public interface PrijavaService {
     boolean isPast(Integer minuti, LocalDateTime datumVreme);
     void save(Prijava prijava);
     void update(Prijava prijava);
-    void deleteByPacijent(Long pacijentId, Long id);
+    void deleteByPacijent(Long pacijentId);
     void delete(Long id);
 }
