@@ -83,7 +83,7 @@ create table prijavaZaVakcinu(
     pacijentId bigint not null,
     foreign key(pacijentId) references korisnici(id) on delete cascade,
     vakcinaId bigint not null,
-    foreign key(vakcinaId) references Vakcina(id) on delete cascade,
+    foreign key(vakcinaId) references vakcina(id) on delete cascade,
     primary key(id)
 );
 

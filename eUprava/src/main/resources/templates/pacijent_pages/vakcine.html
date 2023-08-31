@@ -7,6 +7,9 @@
 </head>
 <body>
 <div th:replace="~{navbars/pacijent_navbar :: navbar}">...</div>
+<div th:if="${poruka}">
+    <span th:text="${poruka}"></span>
+</div>
 <table style="border: 1px solid">
     <thead>
     <tr>
@@ -25,7 +28,11 @@
         <td th:text="${vakcina.kolicina}"></td>
         <td th:text="${vakcina.proizvodjac.proizvodjac}"></td>
         <td th:text="${vakcina.proizvodjac.drzavaProizvodnje}"></td>
-        <td><a>Prijavi se</a></td>
+        <td><form th:action="@{/prijava/new}" method="post">
+            <input type="hidden" name="vakcinaId" th:value="${vakcina.id}">
+            <button type="submit">Prijavi se</button>
+        </form>
+        </td>
     </tr>
     </tbody>
 </table>

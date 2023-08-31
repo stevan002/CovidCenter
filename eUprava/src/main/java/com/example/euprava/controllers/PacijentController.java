@@ -1,6 +1,7 @@
 package com.example.euprava.controllers;
 
 import com.example.euprava.Models.EUloga;
+import com.example.euprava.Models.Korisnik;
 import com.example.euprava.Models.Pacijent;
 import com.example.euprava.Models.Vakcina;
 import com.example.euprava.Services.KorisnikService;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -59,7 +61,22 @@ public class PacijentController {
         return "greska";
     }
 
-    @GetMapping("/pacijenti/update")
+    @GetMapping("/pacijent/doze")
+    public String prikazDoza(Model model, HttpServletRequest request) throws HttpClientErrorException.NotFound{
+        Cookie[] cookies = request.getCookies();
+        Korisnik korisnik = korisnikService.checkCookieUser(cookies);
+        Pacijent pacijent = pacijentService.findOne(korisnik.getId());
+
+        model.addAttribute("pacijent", pacijent);
+
+        if(korisnikService.checkCookies(cookies, EUloga.Pacijent)){
+            return "pacijent_pages/doze";
+        }
+
+        return "greska";
+    }
+
+    @PostMapping("/pacijenti/update")
     public String updatePacijent(Pacijent pacijent, RedirectAttributes redirectAttributes){
         pacijentService.update(pacijent);
         redirectAttributes.addFlashAttribute("message", "Pacijent je izmenjen");

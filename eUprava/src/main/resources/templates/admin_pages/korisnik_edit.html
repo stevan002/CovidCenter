@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>[[${naslov}]]</title>
+    <link rel="stylesheet"  type="text/css"  href="css/StiloviTabela.css"/>
 </head>
 <body>
-    <div th:if="${navbar == 'Registracija'}" th:insert="~{navbars/admin_navbar :: navbar}">...</div>
-    <div th:unless="${navbar == 'Registracija'}" th:insert="~{navbars/no_login_navbar :: navbar}"></div>
+    <div th:unless="${navbar == 'Registracija'}" th:insert="~{navbars/admin_navbar :: navbar}">...</div>
+    <div th:if="${navbar == 'Registracija'}" th:insert="~{navbars/no_login_navbar :: navbar}"></div>
     <form th:action="@{${url}}" method="post" th:object="${korisnik}">
         <input type="hidden" th:field="*{id}">
         <div>

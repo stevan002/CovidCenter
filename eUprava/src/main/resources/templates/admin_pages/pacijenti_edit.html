@@ -5,6 +5,28 @@
     <title>Karton pacijenta</title>
 </head>
 <body>
+<form th:action="@{/pacijenti/update}" method="post" th:object="${pacijent}">
+    <input type="hidden" th:field="*{korisnikId}">
 
+    <div>
+        <div>
+            <label for="primljeneDoze">Broj primljenih doza</label>
+            <input type="text" id="primljeneDoze" th:field="*{doze}" required>
+        </div>
+        <div>
+            <label for="vreme">Vreme primanja poslednje doze</label>
+            <input type="text" id="vreme" th:field="*{vremePrimanjaDoze}" required>
+        </div>
+    </div>
+
+    <button type="submit">Submit</button>
+    <button type="button" onclick="preusmjeriNaProizvodjace()">Cancel</button>
+</form>
 </body>
 </html>
+
+<script>
+    function preusmjeriNaProizvodjace() {
+        window.location.href = "/eUprava/pacijenti";
+    }
+</script>

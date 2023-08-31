@@ -23,6 +23,9 @@ public class Pacijent {
         this.korisnik = korisnik;
     }
 
+    public Pacijent() {
+    }
+
     public Long getKorisnikId() {
         return korisnikId;
     }

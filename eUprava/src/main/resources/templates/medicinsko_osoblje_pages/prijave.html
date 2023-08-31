@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Prijave</title>
+    <link rel="stylesheet"  type="text/css"  href="css/StiloviTabela.css"/>
+</head>
+<body>
+<div th:replace="~{navbars/medicinsko_osoblje_navbar :: navbar}">...</div>
+<div th:if="${poruka}">
+    <span th:text="${poruka}"></span>
+</div>
+<form th:action="@{/prijave}" method="get">
+    <input type="text" name="pretraga" placeholder="Pretraga...">
+    <button type="submit"Pretrazi></button>
+</form>
+<table>
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Datum i vreme</th>
+        <th>Ime pacijenta</th>
+        <th>Prezime pacijenta</th>
+        <th>Email pacijenta</th>
+        <th>JMBG pacijenta</th>
+        <th>Ime vakcine</th>
+        <th>Proizvodjac Vakcine</th>
+        <th>Potvrdi vakcinaciju</th>
+        <th>Izbrisi prijavu</th>
+    </tr>
+    </thead>
+    <tbody>
+    <th:block th:each="prijava : ${listaPrijava}">
+        <tr>
+            <td th:text="${prijava.id}"></td>
+            <td th:text="${prijava.vremeDobijanjaDoze}"></td>
+            <td th:text="${prijava.pacijent.korisnik.ime}"></td>
+            <td th:text="${prijava.pacijent.korisnik.prezime}"></td>
+            <td th:text="${prijava.pacijent.korisnik.email}"></td>
+            <td th:text="${prijava.pacijent.korisnik.jmbg}"></td>
+            <td th:text="${prijava.vakcina.ime}"></td>
+            <td th:text="${prijava.vakcina.proizvodjac.proizvodjac}"></td>
+            <td>
+                <form th:action="@{/prijave/create}" method="post">
+                    <input type="hidden" name="prijavaId" th:value="${prijava.id}" />
+                    <button type="submit" class="btn btn-secondary btn-sm">Confirm</button>
+                </form>
+            </td>
+            <td><a th:href="@{'/prijave/delete/' + ${prijava.id}}">Izbrisi</a></td>
+
+        </tr>
+
+    </th:block>
+    </tbody>
+</table>
+</body>
+</html>

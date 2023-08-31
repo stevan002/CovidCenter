@@ -50,6 +50,7 @@ public class Prijava {
 
     public void setPacijent(Pacijent pacijent) {
         this.pacijent = pacijent;
+        this.pacijentId = pacijent.getKorisnikId();
     }
 
     public Long getVakcinaId() {
@@ -66,6 +67,7 @@ public class Prijava {
 
     public void setVakcina(Vakcina vakcina) {
         this.vakcina = vakcina;
+        this.vakcinaId = vakcina.getId();
     }
 
     @Override
