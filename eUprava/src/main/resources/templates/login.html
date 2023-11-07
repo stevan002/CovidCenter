@@ -7,7 +7,9 @@
 </head>
 <body>
 <div th:replace="~{navbars/no_login_navbar :: navbar}">...</div>
-<p th:text="${greska}"></p>
+<div th:if="${greska}">
+  <span th:text="${greska}"></span>
+</div>
 <div>
   <h2>Prijava</h2>
   <form th:action="@{/login/save}" method="post">

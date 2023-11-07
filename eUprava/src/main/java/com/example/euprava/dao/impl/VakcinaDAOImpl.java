@@ -67,7 +67,7 @@ public class VakcinaDAOImpl implements VakcinaDAO {
     public List<Vakcina> search(String pretraga) {
         String sql = "select v.id, v.ime, v.kolicina, v.proizvodjacId from vakcina v " +
                 "join proizvodjacVakcina p on v.proizvodjacId = p.id " +
-                "where v.ime = ? or v.kolicina = ? or p.proizvodjac = ? or p.drzavaProizvodnje = ? " +
+                "where v.ime like ? or v.kolicina like ? or p.proizvodjac like ? or p.drzavaProizvodnje like ? " +
                 "order by v.id ";
         VakcinaRowCallBackHandler rowCallBackHandler = new VakcinaRowCallBackHandler();
         String temp = "%" + pretraga + "%";

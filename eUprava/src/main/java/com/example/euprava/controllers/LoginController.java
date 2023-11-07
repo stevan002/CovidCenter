@@ -41,7 +41,7 @@ public class LoginController {
             if(isUserLoggedIn(korisnik.getEmail())){
                 model.addAttribute("greska", "Korisnik je ulogovan");
                 setSessionCookie(response, korisnik.getEmail());
-                return "pocetna";
+                return "redirect:/";
             }
 
             if(sessionID.isEmpty()){

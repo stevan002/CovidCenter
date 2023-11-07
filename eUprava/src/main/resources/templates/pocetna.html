@@ -10,7 +10,9 @@
 <div th:if="${uloga == 'pacijent'}" th:insert="~{navbars/pacijent_navbar :: navbar}"></div>
 <div th:if="${uloga == 'osoblje'}" th:insert="~{navbars/medicinsko_osoblje_navbar :: navbar}"></div>
 <div th:if="${uloga == 'none'}" th:insert="~{navbars/no_login_navbar :: navbar}"></div>
-<p>[[${greska}]]</p>
+<div th:if="${greska}">
+    <span th:text="${greska}"></span>
+</div>
 <h1>Presek stanja o obolelima u poslednja 24h</h1>
 <table style="border: 1px solid">
     <tr>
